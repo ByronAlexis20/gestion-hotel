@@ -1,0 +1,18 @@
+package ec.com.hotel.modelo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Query;
+
+public class ClienteDAO extends ClaseDAO{
+	@SuppressWarnings("unchecked")
+	public List<Cliente> getListaClientesBuscar(String value) {
+		List<Cliente> resultado = new ArrayList<Cliente>(); 
+		Query query = getEntityManager().createNamedQuery("Cliente.buscarPorPatron");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("patron","%" + value.toLowerCase() + "%");
+		resultado = (List<Cliente>) query.getResultList();
+		return resultado;
+	}
+}

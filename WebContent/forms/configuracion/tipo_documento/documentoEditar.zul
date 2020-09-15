@@ -1,0 +1,36 @@
+<?page title="Tipos de documentos" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winDocumentoEditar" width="455px" vflex="1"
+		apply="org.zkoss.bind.BindComposer" border="none" position="center"
+		mode="overlapped"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.configuracion.DocumentoEditar')">
+		<caption label="Ingrese datos" height="20px"
+			sclass="p-1 text-white font-italic font-weight-bold" />
+		<vlayout>
+			<grid>
+				<columns>
+					<column align="right" hflex="min" />
+					<column align="left" hflex="1" />
+				</columns>
+				<rows>
+					<row>
+						<label value="Descripción: "
+							sclass="font-weight-bold col-form-label" />
+						<textbox id="descripcion"
+							value="@bind(vm.tipoDocumento.tipoDocumento)" hflex="1" height="100px"
+							multiline="true" maxlength="250" />
+					</row>
+				</rows>
+			</grid>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<div>
+				<button id="grabar" label="Grabar"
+					iconSclass="z-icon-save"
+					onClick="@command('grabar')" />
+				<button id="salir" label="Salir"
+					iconSclass="z-icon-sign-out"
+					onClick="@command('salir')" />
+			</div>
+		</vlayout>
+	</window>
+</zk>

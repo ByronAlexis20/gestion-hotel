@@ -1,0 +1,53 @@
+<?page title="Selección de Habitaciones" contentType="text/html;charset=UTF-8"?>
+
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		height="60%" vflex="1" width="50%">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<label value="Seleccionar Habitación"
+					style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #000000;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<div hflex="1">
+				<label value="Seleccione Fecha: "/>
+				<datebox/>
+				<button label="Buscar Habitaciones Disponibles"
+							iconSclass="z-icon-search" />
+			</div>
+			
+			<div style="margin-top:10px">
+				<label value="Habitaciones Disponibles"
+					style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #000000;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+		
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstHabitaciones" model="@load(vm.habitacionLista)" autopaging="true"
+					mold="paging" hflex="1" vflex="1">
+					<listhead>
+						<listheader label="No Hab." width="8%" align="center" />
+						<listheader label="Categoria" align="center" />
+						<listheader label="Nivel" align="center" width="15%" />
+						<listheader label="# Camas" width="10%" align="center" />
+						<listheader label="Acción" width="15%" align="center"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.numero)" />
+							<listcell label="@load(each.categoria.categoria)" />
+							<listcell label="@load(each.nivel.nivel)" />
+							<listcell label="@load(each.numeroCamas)" />
+							<listcell label="@load(each.estado)" />
+							<listcell>
+								<div align="center">
+									<button label="Seleccionar" iconSclass="z-icon-pencil" onClick="@command('editar',habitacion=each)" />
+								</div>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

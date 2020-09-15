@@ -1,0 +1,60 @@
+<?page title="Lista de Categorías" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.configuracion.CategoriaLista')"
+		hflex="1" vflex="1">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<image src="/imagenes/ic_categoria_negro.png"
+					width="30px" />
+				<label value="Registro de Categorías "
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #000000;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<div hflex="1">
+				<hlayout hflex="1">
+					<div hflex="1">
+						<button label="Registrar Nueva Categoria"
+							iconSclass="z-icon-plus" onClick="@command('nuevo')" />
+					</div>
+
+					<div >
+						<textbox value="@bind(vm.textoBuscar)" onOK="@command('buscar')"
+							width="300px" style="text-transform:uppercase"
+							placeholder="Búsqueda por nombre de categoría" />
+						<button iconSclass="z-icon-search"
+							onClick="@command('buscar')" />
+					</div>
+				</hlayout>
+			</div>
+			<hlayout></hlayout>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstCategoria" model="@load(vm.categoria)" autopaging="true"
+					mold="paging" hflex="1" vflex="1">
+					<listhead>
+						<listheader label="Categoría" />
+						<listheader label="Estado" width="20%" />
+						<listheader label="Acción" width="20%"
+							align="center" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.categoria)" />
+							<listcell label="@load(each.estado)" />
+							<listcell>
+								<div align="center">
+									<button label="Editar"
+										iconSclass="z-icon-pencil"
+										onClick="@command('editar',categoria=each)" />
+									<button label="Eliminar"
+										iconSclass="z-icon-trash-o"
+										onClick="@command('eliminar',categoria=each)" />
+								</div>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

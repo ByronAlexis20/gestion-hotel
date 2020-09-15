@@ -1,0 +1,25 @@
+<?page title="Menú Principal - Hotel" contentType="text/html;charset=UTF-8"?>
+<?link rel="stylesheet" href="/css/estilos.css" ?>
+<zk xmlns:n="native">
+
+	<borderlayout hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.MenuControl')">
+		<north height="43px" border="none"
+			style="background-color: #3b4652;" hflex="1" flex="false">
+			<include src="/banner.zul" vflex="1" hflex="1" />
+		</north>
+		 <west  width="230px" flex="true" border="none" maxsize="250" splittable="true" collapsible="true">
+	    	<div vflex="1" hflex="1">
+	      		<tree id="menu" vflex="1"  hflex="1" class="menu"/>
+	    	</div>
+	    </west>
+		<center id="mainContent" autoscroll="true"
+			style="background-color: transparent;">
+			<include id="areaContenido" hflex="1" vflex="1" />
+		</center>
+		<south height="25px" border="none" style="background-color: transparent;">
+			<include src="/footer.zul" vflex="1" hflex="1" />
+		</south>
+	</borderlayout>
+	
+</zk>

@@ -1,0 +1,90 @@
+<?page title="Huespedes" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winHuespedEditar" width="37%" vflex="1"
+		apply="org.zkoss.bind.BindComposer" border="none" position="center"
+		mode="overlapped"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.administracion.HuespedEditar')">
+		<caption label="Ingrese datos" height="20px"
+			sclass="p-1 text-white font-italic font-weight-bold" />
+		<vlayout>
+			<grid hflex="1">
+				<columns>
+					<column align="right" hflex="min" />
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<cell>Nombres:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" placeholder="Nombres del huésped"
+								id="txtNombres" hflex="1" value="@bind(vm.huesped.nombres)"/>
+						</cell>
+					</row>
+					<row>
+						<cell>Apellidos:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" placeholder="Apellidos del huésped"
+								id="txtApellidos" hflex="1" value="@bind(vm.huesped.apellidos)"/>
+						</cell>
+					</row>
+					<row>
+						<cell sclass="row-title">Tipo de documento:</cell>
+						<cell>
+							<combobox id="cboTipoDocumento" hflex="1"
+								model="@load(vm.tiposDocumentos)"
+								readonly="true">
+								<template name="model">
+									<comboitem label="${each.tipoDocumento}" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell sclass="row-title">No. Documento:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" placeholder="Número de documento"
+								id="txtNoDocumento" hflex="1" value="@bind(vm.huesped.numeroDocumento)"/>
+						</cell>
+					</row>
+					<row>
+						<cell>Celular:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" placeholder="Celular del huésped"
+								id="txtCelular" hflex="1" value="@bind(vm.huesped.celular)"/>
+						</cell>
+					</row>
+					<row>
+						<cell>Correo:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" placeholder="Dirección de email del huésped"
+								id="txtCorreo" hflex="1" value="@bind(vm.huesped.correo)"/>
+						</cell>
+					</row>
+					<row>
+						<cell>Dirección:</cell>
+						<cell>
+							<textbox hflex="1" multiline="true"
+								class="form-control form-control-sm" placeholder="Dirección de residencia"
+								id="txtDirecion" value="@bind(vm.huesped.direccion)"/>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<hlayout hflex="1" height="1">
+				<div align="center" hflex="1">
+					<button id="grabar" label="Grabar"
+					iconSclass="z-icon-save"
+					onClick="@command('grabar')" />
+				<button id="salir" label="Salir"
+					iconSclass="z-icon-sign-out"
+					onClick="@command('salir')" />			
+				</div>
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>
