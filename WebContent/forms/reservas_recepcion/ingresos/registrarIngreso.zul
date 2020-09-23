@@ -2,8 +2,8 @@
 <zk>
 	<window apply="org.zkoss.bind.BindComposer" border="none"
 		vflex="1" width="50%" id="winReservaEditar" class="modal-title"
-		viewModel="@id('vm') @init('ec.com.hotel.controlador.recepcion.ReservaEditar')">
-		<caption label="Datos de la reserva" height="25px" class="modal-title-letters"/>
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.recepcion.RegistrarIngreso')">
+		<caption label="Datos del Ingreso" height="25px" class="modal-title-letters"/>
 		
 		<vlayout hflex="1">
 			<div style="margin-top:10px">
@@ -46,9 +46,7 @@
 					</combobox>
 					<label value="No. Documento"/>
 					<div hflex="1">
-						<textbox id="txtNumeroDocumento" width="80%" placeholder="Número de documento" onBlur="@command('buscarCiente')" 
-						onOK="@command('buscarCiente')"/>
-						<button id="btnBuscarCliente" width="18%" iconSclass="z-icon-search" onClick="@command('buscarCiente')"/>
+						<textbox id="txtNumeroDocumento" hflex="1" placeholder="Número de documento"/>
 					</div>
 					<hbox hflex="1">
 						<vbox hflex="1">
@@ -78,7 +76,7 @@
 						</vbox>
 						<vbox hflex="1">
 							<label value="Fecha de Salida"/>
-							<datebox id="dtpFechaSalida" hflex="1" onChange="@command('seleccionaFechaFin')"/>
+							<datebox id="dtpFechaSalida" hflex="1" />
 						</vbox>
 					</hbox>
 					<div hflex="1">
@@ -90,10 +88,7 @@
 							<label value="Precio:"/>
 							<textbox id="txtPrecioTotal" hflex="1" readonly="true"/>
 						</vbox>
-						<vbox hflex="1">
-							<label value="Adelanto:"/>
-							<textbox id="txtAdelanto" hflex="1"/>
-						</vbox>
+						
 					</hbox>
 				</vbox>
 			</hbox>

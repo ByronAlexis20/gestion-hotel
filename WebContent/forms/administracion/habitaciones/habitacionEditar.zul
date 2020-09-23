@@ -2,10 +2,9 @@
 <zk>
 	<window id="winHabitacionEditar" width="37%" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"
-		mode="overlapped"
+		mode="overlapped" class="modal-title"
 		viewModel="@id('vm') @init('ec.com.hotel.controlador.administracion.HabitacionEditar')">
-		<caption label="Ingrese datos" height="20px"
-			sclass="p-1 text-white font-italic font-weight-bold" />
+		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<grid hflex="1">
 				<columns>
@@ -14,14 +13,16 @@
 				</columns>
 				<rows>
 					<row>
-						<cell>Número de habitacion:</cell>
+						<cell>
+							<label value="Número de habitacion:" class="label-form"></label>
+						</cell>
 						<cell>
 							<textbox class="form-control form-control-sm" placeholder="Número de la habitación"
 								id="txtNumHabitacion" value="@bind(vm.habitacion.numero)" />
 						</cell>
 					</row>
 					<row>
-						<cell sclass="row-title">Nivel:</cell>
+						<cell class="label-form">Nivel:</cell>
 						<cell>
 							<combobox id="cboNivel" hflex="1"
 								model="@load(vm.niveles)"
@@ -33,7 +34,7 @@
 						</cell>
 					</row>
 					<row>
-						<cell sclass="row-title">Categoria:</cell>
+						<cell class="label-form">Categoria:</cell>
 						<cell>
 							<combobox id="cboCategoria" hflex="1"
 								model="@load(vm.categorias)"
@@ -45,7 +46,7 @@
 						</cell>
 					</row>
 					<row>
-						<cell>Número de camas:</cell>
+						<cell class="label-form">Número de camas:</cell>
 						<cell>
 							<textbox
 								class="form-control form-control-sm" placeholder="Número de camas"
@@ -54,16 +55,16 @@
 						</cell>
 					</row>
 					<row>
-						<cell>Detalles:</cell>
+						<cell class="label-form">Detalles:</cell>
 						<cell>
-							<textbox hflex="1" height="20px" multiline="true"
-								class="form-control form-control-sm" placeholder="Detalles de la habitacion"
-								id="txtDetalles" 
+							<textbox hflex="1" height="50px" multiline="true"
+								 placeholder="Detalles de la habitacion"
+								id="txtDetalles" class="form-control form-control-sm"
 								value="@bind(vm.habitacion.detalles)" />
 						</cell>
 					</row>
 					<row>
-						<cell>Precio:</cell>
+						<cell class="label-form">Precio:</cell>
 						<cell>
 							<textbox
 								class="form-control form-control-sm" placeholder="Precio por día"
@@ -73,14 +74,17 @@
 					</row>
 				</rows>
 			</grid>
-			<hlayout hflex="1" height="1">
-				<button id="grabar" label="Grabar"
-					iconSclass="z-icon-save"
-					onClick="@command('grabar')" />
-				<button id="salir" label="Salir"
-					iconSclass="z-icon-sign-out"
-					onClick="@command('salir')" />
-			</hlayout>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
 		</vlayout>
 	</window>
 </zk>

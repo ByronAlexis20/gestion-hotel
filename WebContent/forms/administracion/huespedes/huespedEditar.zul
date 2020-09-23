@@ -2,10 +2,9 @@
 <zk>
 	<window id="winHuespedEditar" width="37%" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"
-		mode="overlapped"
+		mode="overlapped" class="modal-title"
 		viewModel="@id('vm') @init('ec.com.hotel.controlador.administracion.HuespedEditar')">
-		<caption label="Ingrese datos" height="20px"
-			sclass="p-1 text-white font-italic font-weight-bold" />
+		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<grid hflex="1">
 				<columns>
@@ -14,7 +13,7 @@
 				</columns>
 				<rows>
 					<row>
-						<cell>Nombres:</cell>
+						<cell class="label-form">Nombres:</cell>
 						<cell>
 							<textbox
 								class="form-control form-control-sm" placeholder="Nombres del huésped"
@@ -22,7 +21,7 @@
 						</cell>
 					</row>
 					<row>
-						<cell>Apellidos:</cell>
+						<cell class="label-form">Apellidos:</cell>
 						<cell>
 							<textbox
 								class="form-control form-control-sm" placeholder="Apellidos del huésped"
@@ -30,7 +29,7 @@
 						</cell>
 					</row>
 					<row>
-						<cell sclass="row-title">Tipo de documento:</cell>
+						<cell class="label-form">Tipo de documento:</cell>
 						<cell>
 							<combobox id="cboTipoDocumento" hflex="1"
 								model="@load(vm.tiposDocumentos)"
@@ -42,7 +41,7 @@
 						</cell>
 					</row>
 					<row>
-						<cell sclass="row-title">No. Documento:</cell>
+						<cell class="label-form">No. Documento:</cell>
 						<cell>
 							<textbox
 								class="form-control form-control-sm" placeholder="Número de documento"
@@ -50,7 +49,7 @@
 						</cell>
 					</row>
 					<row>
-						<cell>Celular:</cell>
+						<cell class="label-form">Celular:</cell>
 						<cell>
 							<textbox
 								class="form-control form-control-sm" placeholder="Celular del huésped"
@@ -58,7 +57,7 @@
 						</cell>
 					</row>
 					<row>
-						<cell>Correo:</cell>
+						<cell class="label-form">Correo:</cell>
 						<cell>
 							<textbox
 								class="form-control form-control-sm" placeholder="Dirección de email del huésped"
@@ -66,7 +65,7 @@
 						</cell>
 					</row>
 					<row>
-						<cell>Dirección:</cell>
+						<cell class="label-form">Dirección:</cell>
 						<cell>
 							<textbox hflex="1" multiline="true"
 								class="form-control form-control-sm" placeholder="Dirección de residencia"
@@ -75,16 +74,17 @@
 					</row>
 				</rows>
 			</grid>
-			<hlayout hflex="1" height="1">
-				<div align="center" hflex="1">
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
 					<button id="grabar" label="Grabar"
-					iconSclass="z-icon-save"
-					onClick="@command('grabar')" />
-				<button id="salir" label="Salir"
-					iconSclass="z-icon-sign-out"
-					onClick="@command('salir')" />			
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
 				</div>
-			</hlayout>
+			</vbox>
 		</vlayout>
 	</window>
 </zk>

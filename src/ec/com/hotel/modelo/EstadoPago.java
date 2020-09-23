@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="estado_pago")
-@NamedQuery(name="EstadoPago.findAll", query="SELECT e FROM EstadoPago e")
+@NamedQuery(name="EstadoPago.buscarPorId", query="SELECT e FROM EstadoPago e where e.idEstadoPago = :id")
 public class EstadoPago implements Serializable {
 	private static final long serialVersionUID = 1L;
 

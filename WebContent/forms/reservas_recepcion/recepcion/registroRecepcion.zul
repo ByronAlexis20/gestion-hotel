@@ -2,9 +2,8 @@
 <zk>
 	<window apply="org.zkoss.bind.BindComposer" border="none"
 		vflex="1" width="50%" id="winReservaEditar" class="modal-title"
-		viewModel="@id('vm') @init('ec.com.hotel.controlador.recepcion.ReservaEditar')">
-		<caption label="Datos de la reserva" height="25px" class="modal-title-letters"/>
-		
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.recepcion.RegistroRecepcion')">
+		<caption label="Recepción" height="25px" class="modal-title-letters"/>
 		<vlayout hflex="1">
 			<div style="margin-top:10px">
 				<label value="Datos de la Habitación"

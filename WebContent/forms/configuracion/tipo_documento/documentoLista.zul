@@ -11,21 +11,21 @@
 				<label value="Registro de Tipos de Documentos"
 					style="font-size:25px;font-weight: bold;" />
 			</div>
-			<separator hflex="1" style="border-color: #000000;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
 			<div hflex="1">
 				<hlayout hflex="1">
 					<div hflex="1">
-						<button label="Registrar Nuevo Tipo de Documento"
+						<button label="Registrar Nuevo Tipo de Documento" zclass="but btn-form btn-sm"
 							iconSclass="z-icon-plus" onClick="@command('nuevo')" />
 					</div>
 
-					<div >
+					<hbox align="center">
 						<textbox value="@bind(vm.textoBuscar)" onOK="@command('buscar')"
-							width="300px" style="text-transform:uppercase"
+							width="300px" class="form-control tamanio-textbox"
 							placeholder="Búsqueda por nombre de tipo de documento" />
-						<button iconSclass="z-icon-search"
+						<button iconSclass="z-icon-search" class="but btn-form btn-sm"
 							onClick="@command('buscar')" />
-					</div>
+					</hbox>
 				</hlayout>
 			</div>
 			<hlayout></hlayout>
@@ -33,22 +33,22 @@
 				<listbox id="lstDocumentos" model="@load(vm.listaDocumentos)" autopaging="true"
 					mold="paging" hflex="1" vflex="1">
 					<listhead>
-						<listheader label="Categoría" />
-						<listheader label="Estado" width="20%" />
-						<listheader label="Acción" width="20%"
+						<listheader label="Categoría" class="lb-listheader"/>
+						<listheader label="Estado" width="20%" class="lb-listheader"/>
+						<listheader label="Acción" width="20%" class="lb-listheader"
 							align="center" />
 					</listhead>
 					<template name="model">
 						<listitem>
-							<listcell label="@load(each.tipoDocumento)" />
-							<listcell label="@load(each.estado)" />
+							<listcell label="@load(each.tipoDocumento)" class="lb-listcell"/>
+							<listcell label="@load(each.estado)" class="lb-listcell"/>
 							<listcell>
 								<div align="center">
 									<button label="Editar"
-										iconSclass="z-icon-pencil"
+										iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
 										onClick="@command('editar',documento=each)" />
 									<button label="Eliminar"
-										iconSclass="z-icon-trash-o"
+										iconSclass="z-icon-trash-o" zclass="btn-eliminar btn-size"
 										onClick="@command('eliminar',documento=each)" />
 								</div>
 							</listcell>

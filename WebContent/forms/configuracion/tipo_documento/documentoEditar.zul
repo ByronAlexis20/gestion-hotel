@@ -2,10 +2,9 @@
 <zk>
 	<window id="winDocumentoEditar" width="455px" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"
-		mode="overlapped"
+		mode="overlapped" class="modal-title"
 		viewModel="@id('vm') @init('ec.com.hotel.controlador.configuracion.DocumentoEditar')">
-		<caption label="Ingrese datos" height="20px"
-			sclass="p-1 text-white font-italic font-weight-bold" />
+		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<grid>
 				<columns>
@@ -14,8 +13,7 @@
 				</columns>
 				<rows>
 					<row>
-						<label value="Descripción: "
-							sclass="font-weight-bold col-form-label" />
+						<label value="Descripción: " class="label-form"/>
 						<textbox id="descripcion"
 							value="@bind(vm.tipoDocumento.tipoDocumento)" hflex="1" height="100px"
 							multiline="true" maxlength="250" />
@@ -23,14 +21,16 @@
 				</rows>
 			</grid>
 			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
-			<div>
-				<button id="grabar" label="Grabar"
-					iconSclass="z-icon-save"
-					onClick="@command('grabar')" />
-				<button id="salir" label="Salir"
-					iconSclass="z-icon-sign-out"
-					onClick="@command('salir')" />
-			</div>
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
 		</vlayout>
 	</window>
 </zk>

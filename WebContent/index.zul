@@ -1,16 +1,18 @@
 <?page title="Menú Principal - Hotel" contentType="text/html;charset=UTF-8"?>
 <?link rel="stylesheet" href="/css/estilos.css" ?>
+<?link rel="stylesheet" href="/css/bootstrap.css" ?>
+
 <zk xmlns:n="native">
 
 	<borderlayout hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ec.com.hotel.controlador.MenuControl')">
 		<north height="43px" border="none"
-			style="background-color: #3b4652;" hflex="1" flex="false">
+			style="background-color: #3c8dbc" hflex="1" flex="false">
 			<include src="/banner.zul" vflex="1" hflex="1" />
 		</north>
-		 <west  width="230px" flex="true" border="none" maxsize="250" splittable="true" collapsible="true">
+		 <west  width="230px" flex="true" maxsize="250" class="menu" splittable="true" collapsible="true">
 	    	<div vflex="1" hflex="1">
-	      		<tree id="menu" vflex="1"  hflex="1" class="menu"/>
+	      		<tree  id="menu" vflex="1"  hflex="1"  style="padding-top:20px;"/>
 	    	</div>
 	    </west>
 		<center id="mainContent" autoscroll="true"

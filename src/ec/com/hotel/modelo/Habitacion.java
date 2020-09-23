@@ -26,6 +26,9 @@ public class Habitacion implements Serializable {
 
 	@Column(name="numero_camas")
 	private int numeroCamas;
+	
+	@Column(name="estado_reserva")
+	private String estadoReserva;
 
 	private float precio;
 
@@ -44,7 +47,7 @@ public class Habitacion implements Serializable {
 	private List<Imagen> imagens;
 
 	//bi-directional many-to-one association to Reserva
-	@OneToMany(mappedBy="habitacion")
+	@OneToMany(mappedBy="habitacion",cascade = CascadeType.ALL)
 	private List<Reserva> reservas;
 
 	public Habitacion() {
@@ -156,6 +159,14 @@ public class Habitacion implements Serializable {
 		reserva.setHabitacion(null);
 
 		return reserva;
+	}
+
+	public String getEstadoReserva() {
+		return estadoReserva;
+	}
+
+	public void setEstadoReserva(String estadoReserva) {
+		this.estadoReserva = estadoReserva;
 	}
 
 }

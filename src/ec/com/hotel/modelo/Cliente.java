@@ -5,9 +5,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@NamedQuery(name="Cliente.buscarPorPatron", query="SELECT c FROM Cliente c where (lower(c.nombres) "
-		+ "like(:patron) or lower(c.apellidos) like(:patron)) and c.estado = 'A'")
-
+@Table(name="cliente")
+@NamedQueries({
+	@NamedQuery(name="Cliente.buscarPorPatron", query="SELECT c FROM Cliente c where (lower(c.nombres) "
+			+ "like(:patron) or lower(c.apellidos) like(:patron)) and c.estado = 'A'"),
+	@NamedQuery(name="Cliente.buscarPorCedula", query="SELECT c FROM Cliente c where c.numeroDocumento = :cedula and c.estado = 'A'")
+})
 
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -38,7 +41,7 @@ public class Cliente implements Serializable {
 	private TipoDocumento tipoDocumento;
 
 	//bi-directional many-to-one association to Reserva
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy="cliente",cascade = CascadeType.ALL)
 	private List<Reserva> reservas;
 
 	public Cliente() {

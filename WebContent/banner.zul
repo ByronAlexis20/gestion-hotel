@@ -24,7 +24,7 @@
 			<image src="/imagenes/icono_hotel.png" height="30px" />
 		</vbox>
 		<hbox pack="start" align="start" hflex="1" vflex="1">
-			<vbox pack="center" vflex="1">
+			<vbox pack="center" vflex="1" >
 				<label
 					style="font: 120% sans-serif; font-weight: bold; color: white"
 					value="Hotel Montoya" />

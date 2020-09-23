@@ -15,4 +15,13 @@ public class ClienteDAO extends ClaseDAO{
 		resultado = (List<Cliente>) query.getResultList();
 		return resultado;
 	}
+	@SuppressWarnings("unchecked")
+	public List<Cliente> getListaClientesBuscarCedula(String cedula) {
+		List<Cliente> resultado = new ArrayList<Cliente>(); 
+		Query query = getEntityManager().createNamedQuery("Cliente.buscarPorCedula");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("cedula",cedula);
+		resultado = (List<Cliente>) query.getResultList();
+		return resultado;
+	}
 }

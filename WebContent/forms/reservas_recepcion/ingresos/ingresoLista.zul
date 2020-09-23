@@ -2,36 +2,26 @@
 
 <zk>
 	<window border="none" hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer" 
-		viewModel="@id('vm') @init('ec.com.hotel.controlador.recepcion.ReservaLista')">
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.recepcion.IngresoLista')">
 		<vlayout vflex="1">
 			<div style="margin-top:10px">
-				<image src="/imagenes/ic_reservas_negro.png"
+				<image src="/imagenes/ic_ingreso_negro.png"
 					width="30px" />
-				<label value="Listado de reservaciones"
+				<label id="lblTitulo" 
 					style="font-size:25px;font-weight: bold;" />
 			</div>
+			
 			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
 			<div hflex="1">
 				<hlayout hflex="1">
 					<div hflex="1">
-						<button label="Registrar Nueva Reserva" zclass="but btn-form btn-sm"
-							iconSclass="z-icon-plus" onClick="@command('nuevo')"/>
+						<hbox align="center">
+							<textbox width="300px" value="@bind(vm.textoBuscar)"
+								class="form-control tamanio-textbox" onOK="@command('buscar')"
+								placeholder="Búsqueda por cliente" />
+							<button iconSclass="z-icon-search" class="but btn-form btn-sm" onClick="@command('buscar')"/>
+						</hbox>
 					</div>
-					
-						<!--  <label value="Ordenar por: "/>
-						<combobox type="text">
-							<comboitem label="Fecha de Llegada"/>
-							<comboitem label="Reservas para este día"/>
-							<comboitem label="Huésped [A-Z]"/>
-						</combobox>
-						<button label="Actualizar"/> -->
-
-					<hbox align="center">
-						<textbox width="300px"
-							class="form-control tamanio-textbox"
-							placeholder="Búsqueda por tipo de documento" />
-						<button iconSclass="z-icon-search" class="but btn-form btn-sm" />
-					</hbox>
 				</hlayout>
 			</div>
 			<hlayout></hlayout>
@@ -40,18 +30,20 @@
 					mold="paging" hflex="1" vflex="1">
 					<listhead>
 						<listheader label="No Documento" width="10%" class="lb-listheader"/>
-						<listheader label="Cliente" class="lb-listheader"/>
+						<listheader label="Nombres Cliente" class="lb-listheader"/>
+						<listheader label="Apellidos Cliente" class="lb-listheader"/>
 						<listheader label="F. ingreso" width="10%" class="lb-listheader"/>
 						<listheader label="F. registro" width="10%" class="lb-listheader"/>
-						<listheader label="No. Habitación" width="10%" class="lb-listheader"/>
+						<listheader label="No. Hab." width="8%" class="lb-listheader"/>
 						<listheader label="Categoria" class="lb-listheader"/>
-						<listheader label="Estado" class="lb-listheader"/>
-						<listheader label="Accion" width="min" class="lb-listheader"/>
+						<listheader label="Estado" width="10%" class="lb-listheader"/>
+						<listheader label="Accion" width="8%" class="lb-listheader"/>
 					</listhead>
 					<template name="model">
 						<listitem>
 							<listcell label="@load(each.cliente.numeroDocumento)" class="lb-listcell"/>
-							<listcell label="@load(each.cliente.nombres) @load(each.cliente.apellidos)" class="lb-listcell"/>
+							<listcell label="@load(each.cliente.nombres)" class="lb-listcell"/>
+							<listcell label="@load(each.cliente.apellidos)" class="lb-listcell"/>
 							<listcell label="@load(each.fechaEntrada) @converter('formatedDate',format='dd/MM/yyyy')" class="lb-listcell"/>
 							<listcell label="@load(each.fechaRegistro) @converter('formatedDate',format='dd/MM/yyyy')" class="lb-listcell"/>
 							<listcell label="@load(each.habitacion.numero)" class="lb-listcell"/>
@@ -59,8 +51,8 @@
 							<listcell label="@load(each.estadoReservaS)" class="lb-listcell"/>
 							<listcell>
 								<div align="center" hflex="1">
-										<!-- <button iconSclass="z-icon-pencil" onClick="@command('editar',reserva=each)"/>  -->
-									 <button iconSclass="z-icon-trash-o" onClick="@command('eliminar',reserva=each)" zclass="btn-eliminar btn-size"/> 
+									<button iconSclass="z-icon-sign-in" onClick="@command('registrarIngreso',reserva=each)" zclass="btn-editar btn-size"/>
+									<button iconSclass="z-icon-trash-o" onClick="@command('eliminar',reserva=each)" zclass="btn-eliminar btn-size"/> 
 								</div>
 							</listcell>
 						</listitem>

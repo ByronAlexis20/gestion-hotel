@@ -10,7 +10,7 @@ body{
 	background-color: #3b4652;
 }
 /* estilos para las listas de los formularios */
-.but {
+.btn {
     display: inline-block;
     font-weight: 400;
     text-align: center;
@@ -64,18 +64,13 @@ body{
 .show>.btn-form.dropdown-toggle:focus {
     box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .5)
 }
-/*.btn-sm {
+.btn-sm {
     padding: .25rem .5rem;
     font-size: .875rem;
     line-height: 1.5;
     border-radius: .2rem
-}*/
-.btn-size {
-    padding: 0 10 0 10;
-    font-size: 12px;
-    line-height: 1.5;
-    border-radius: .2rem
 }
+
 .btn-modal {
     color: #3c8dbc;
     background-color: white;
@@ -250,8 +245,4 @@ body{
 /*componentes de formularios*/
 .label-form {
 	color:black;
-}
-.tamanio-textbox {
-  	line-height: 3px;
-  	height: 18px;
 }

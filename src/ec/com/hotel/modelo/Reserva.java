@@ -7,12 +7,19 @@ import java.util.Date;
 import java.util.List;
 
 
-/**
- * The persistent class for the reserva database table.
- * 
- */
 @Entity
-@NamedQuery(name="Reserva.findAll", query="SELECT r FROM Reserva r")
+@Table(name="reserva")
+@NamedQueries({
+	@NamedQuery(name="Reserva.buscarDisponibilidad", query="SELECT r FROM Reserva r "
+			+ "where r.habitacion.idHabitacion = :idHabitacion and (:fecha between r.fechaEntrada and r.fechaSalida) and r.estado = 'A'"),
+	@NamedQuery(name="Reserva.buscarPendientes", query="SELECT r FROM Reserva r "
+			+ "where r.estadoReservaS = 'PENDIENTE' and r.estado = 'A' order by r.idReserva desc"),
+	@NamedQuery(name="Reserva.buscarPendientesDiaActual", query="SELECT r FROM Reserva r "
+			+ "where r.estadoReservaS = 'PENDIENTE' and r.estado = 'A' and r.fechaEntrada = :fecha "
+			+ "and (lower(r.cliente.nombres) like(:patron) or lower(r.cliente.apellidos) like(:patron)) order by r.idReserva asc")
+	
+})
+
 public class Reserva implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -26,6 +33,9 @@ public class Reserva implements Serializable {
 
 	private String estado;
 
+	@Column(name="estado_reserva")
+	private String estadoReservaS;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_entrada")
 	private Date fechaEntrada;
@@ -33,6 +43,10 @@ public class Reserva implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_salida")
 	private Date fechaSalida;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_registro")
+	private Date fechaRegistro;
 
 	@Column(name="hora_entrada")
 	private Time horaEntrada;
@@ -277,6 +291,22 @@ public class Reserva implements Serializable {
 
 	public void setHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
+	}
+
+	public String getEstadoReservaS() {
+		return estadoReservaS;
+	}
+
+	public void setEstadoReservaS(String estadoReservaS) {
+		this.estadoReservaS = estadoReservaS;
+	}
+
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
 	}
 
 }
