@@ -10,7 +10,11 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Servicio.findAll", query="SELECT s FROM Servicio s")
+@Table(name="servicio")
+@NamedQueries({
+	@NamedQuery(name="Servicio.buscarActivos", query="SELECT s FROM Servicio s where s.estado = 'A'"),
+	@NamedQuery(name="Servicio.buscarPorId", query="SELECT s FROM Servicio s where s.idServicio = :id"),
+})
 public class Servicio implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +27,7 @@ public class Servicio implements Serializable {
 
 	private float precio;
 
-	private int servicio;
+	private String servicio;
 
 	//bi-directional many-to-one association to Adicional
 	@OneToMany(mappedBy="servicio")
@@ -60,11 +64,11 @@ public class Servicio implements Serializable {
 		this.precio = precio;
 	}
 
-	public int getServicio() {
+	public String getServicio() {
 		return this.servicio;
 	}
 
-	public void setServicio(int servicio) {
+	public void setServicio(String servicio) {
 		this.servicio = servicio;
 	}
 

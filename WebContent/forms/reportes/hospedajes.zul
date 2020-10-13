@@ -1,0 +1,43 @@
+<?page title="Lista de huespedes" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none" 
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.reportes.Hospedajes')"
+		hflex="1" vflex="1">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<image src="/imagenes/ic_habitacion_negro.png"
+					width="30px" />
+				<label value="Consulta de Hospedajes"
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			<separator hflex="1"
+				style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;"
+				height="1px" />
+			<hlayout vflex="1" hflex="1">
+				<groupbox hflex="1">
+					<caption label="Consumo por hospedajes y servicios" />
+					<div hflex="1" align="center">
+						<hbox hflex="1" align="center" pack="center">
+							<vbox align="center">
+								<label value="Seleccione Fecha Inicio" />
+								<datebox width="200px" id="dtpFechaInicioConsumo"/>
+							</vbox>
+							<separator orient="horizontal" width="30px" />
+							<vbox align="center">
+								<label value="Seleccione Fecha Fin" />
+								<datebox width="200px" id="dtpFechaFinConsumo"/>
+							</vbox>
+						</hbox>
+						<separator orient="horizontal" width="30px" />
+						<hbox hflex="1" align="center" pack="center">
+							<button label="Detallado" zclass="but btn-form btn-sm" onClick="@command('hospedajeDetallado')" />
+							<button label="Resumido" zclass="but btn-form btn-sm" onClick="@command('hospedajeResumido')" />
+						</hbox>
+					</div>
+
+
+				</groupbox>
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

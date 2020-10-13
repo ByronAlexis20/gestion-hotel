@@ -1,0 +1,68 @@
+<?page title="Editar Reservaciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		vflex="1" width="50%" id="winServiciosAdicionales" class="modal-title"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.salidas.ServiciosAdicionales')">
+		<caption label="Servicios Adicionales" height="25px" class="modal-title-letters"/>
+		
+		<vlayout hflex="1">
+			<div style="margin-top:10px">
+				<label value="Datos de la Habitación"
+					style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<div hflex="1">
+				<label value="Número de Habitación: "/>
+				<textbox id="txtNumeroHabitacion" width="100px" readonly="true" placeholder="Número de Habitación"/>
+				<separator orient="vertical" width="10px"/>
+				<label value="Categoría: "/>
+				<textbox id="txtCategoria" placeholder="categoria" hflex="1"  readonly="true"/>
+			</div>
+			<div hflex="1">
+				<label value="Detalles: "/>
+			</div>
+			<div hflex="1">
+				<textbox id="txtDetalles" multiline="true" hflex="1" height="30px" placeholder="detalles" readonly="true"/>
+			</div>
+			
+			<div hflex="1">
+				<label value="Cliente: "/>
+				<textbox id="txtCliente" placeholder="CLiente" hflex="1" readonly="true"/>
+				<separator orient="vertical" width="10px"/>
+				<label value="Nivel/Piso: "/>
+				<textbox id="txtNivel" placeholder="Nivel/Piso" value="100" hflex="1" readonly="true"/>
+			</div>
+			<div hflex="1">
+				<button label="Agregar Servicio" zclass="but btn-form btn-sm"
+							iconSclass="z-icon-search" onClick="@command('agregarServicio')"/>
+			</div>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstServicios" model="@load(vm.listaServicios)" 
+					mold="paging" height="200px" >
+					<listhead>
+						<listheader label="Servicio" class="lb-listheader"/>
+						<listheader label="Cantidad" width="15%" align="center" class="lb-listheader"/>
+						<listheader label="P. Unitario" align="center" width="15%" class="lb-listheader"/>
+						<listheader label="Total" width="15%" align="center" class="lb-listheader"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.servicio.servicio)" class="lb-listcell"/>
+							<listcell label="@load(each.cantidad)" class="lb-listcell"/>
+							<listcell label="@load(each.precio)" class="lb-listcell"/>
+							<listcell label="@load(each.total)" class="lb-listcell"/>
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>

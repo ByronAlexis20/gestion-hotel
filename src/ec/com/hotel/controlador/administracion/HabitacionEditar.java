@@ -15,6 +15,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Doublebox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -25,6 +26,7 @@ import ec.com.hotel.modelo.Habitacion;
 import ec.com.hotel.modelo.HabitacionDAO;
 import ec.com.hotel.modelo.Nivel;
 import ec.com.hotel.modelo.NivelDAO;
+import ec.com.hotel.utils.Constantes;
 
 public class HabitacionEditar {
 	@Wire private Window winHabitacionEditar;
@@ -33,7 +35,7 @@ public class HabitacionEditar {
 	@Wire private Textbox txtNumHabitacion;
 	@Wire private Textbox txtNumCamas;
 	@Wire private Textbox txtDetalles;
-	@Wire private Textbox txtPrecio;
+	@Wire private Doublebox txtPrecio;
 	
 	NivelDAO nivelDAO = new NivelDAO();
 	CategoriaDAO categoriaDAO = new CategoriaDAO();
@@ -68,6 +70,8 @@ public class HabitacionEditar {
 					try {						
 						habitacion.setCategoria((Categoria)cboCategoria.getSelectedItem().getValue());
 						habitacion.setNivel((Nivel)cboNivel.getSelectedItem().getValue());
+						habitacion.setEstadoReserva(Constantes.HABITACION_DISPONIBLE);
+						
 						habitacionDAO.getEntityManager().getTransaction().begin();			
 						if (habitacion.getIdHabitacion() == null) {
 							habitacionDAO.getEntityManager().persist(habitacion);

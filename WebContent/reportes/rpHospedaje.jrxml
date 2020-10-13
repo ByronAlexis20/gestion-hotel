@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.15.0.final using JasperReports Library version 6.15.0-dd49bfb94918336b8321d5507193f0169ead4e95  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpHospedaje" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bf6aa3aa-80d1-4bf4-8eaa-0b8d37ff7781">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Hotel Montoya"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FECHA_INICIO" class="java.util.Date"/>
+	<parameter name="FECHA_FIN" class="java.util.Date"/>
+	<parameter name="HOTEL" class="java.lang.String"/>
+	<parameter name="REPRESENTANTE" class="java.lang.String"/>
+	<parameter name="DIRECCION" class="java.lang.String"/>
+	<parameter name="EMAIL" class="java.lang.String"/>
+	<parameter name="TELEFONO" class="java.lang.String"/>
+	<parameter name="FECHA_BUSQUEDA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT c.id_comprobante,hb.numero,td.tipo_documento,cl.numero_documento,
+concat(cl.nombres, ' ' , cl.apellidos) as huesped,cd.descripcion,
+cd.precio,cd.cantidad,cd.total,re.fecha_entrada, re.fecha_salida,
+re.cantidad_dias,c.fecha as fecha_comprobante,ca.categoria,ni.nivel
+from cliente cl, comprobante c,comprobante_detalle cd,
+reserva re, habitacion hb, nivel ni, categoria ca, tipo_documento td
+where hb.id_categoria = ca.id_categoria
+and hb.id_nivel = ni.id_nivel and hb.id_habitacion = re.id_habitacion
+and re.id_reserva = c.id_reserva and re.id_cliente = cl.id_cliente
+and cd.id_comprobante = c.id_comprobante and
+td.id_tipo_documento = cl.id_tipo_documento
+and c.estado = 'A' and cd.estado = 'A'
+and (c.fecha between  $P{FECHA_INICIO} and  $P{FECHA_FIN} )]]>
+	</queryString>
+	<field name="id_comprobante" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_comprobante"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_comprobante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comprobante"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="habitacion"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_documento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.label" value="tipo_documento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipo_documento"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_documento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numero_documento"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero_documento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="huesped" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="huesped"/>
+		<property name="com.jaspersoft.studio.field.label" value="huesped"/>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comprobante_detalle"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="precio"/>
+		<property name="com.jaspersoft.studio.field.label" value="precio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comprobante_detalle"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cantidad"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comprobante_detalle"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comprobante_detalle"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_entrada" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_entrada"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_entrada"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reserva"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_salida" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_salida"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_salida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reserva"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad_dias" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cantidad_dias"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantidad_dias"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reserva"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_comprobante" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_comprobante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comprobante"/>
+	</field>
+	<field name="categoria" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="categoria"/>
+		<property name="com.jaspersoft.studio.field.label" value="categoria"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categoria"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nivel" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nivel"/>
+		<property name="com.jaspersoft.studio.field.label" value="nivel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="nivel"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="total_1" class="java.lang.Float" resetType="Group" resetGroup="Comprobante" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<group name="Comprobante">
+		<groupExpression><![CDATA[$F{id_comprobante}]]></groupExpression>
+		<groupHeader>
+			<band height="62">
+				<textField>
+					<reportElement x="112" y="2" width="48" height="14" uuid="71903221-f466-434d-8bbb-e762cf5ddefc"/>
+					<textElement textAlignment="Right">
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_comprobante}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="24" y="2" width="86" height="14" uuid="2365edbc-99c9-4337-8a28-5fb5b76f42b2"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[No. Comprobante:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="170" y="2" width="40" height="14" uuid="8b8e13aa-4677-4c18-8298-f5182e28eebf"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[Fecha:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="210" y="2" width="100" height="14" uuid="8e71f0b2-0811-44aa-9e28-77bbada2bc97"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fecha_comprobante}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="24" y="30" width="80" height="14" uuid="cf59ac42-bae3-4a73-adbc-f7dcc92249fe"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[No. Habitación:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="107" y="30" width="53" height="14" uuid="97e6ec8c-767d-450e-830c-e9a465353e20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="332" y="16" width="46" height="14" uuid="c003066b-eedf-4f95-8a34-69b7da8060f7"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[Huésped:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="378" y="16" width="164" height="14" uuid="e05e7e0b-2de3-41d6-ac56-2835e466f70f"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{huesped}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="24" y="16" width="72" height="14" uuid="5d8ab70b-6d8b-436f-aa55-bb93844b750c"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[T. Documento:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="97" y="16" width="63" height="14" uuid="fd807125-e6a5-4248-9ad1-8bf133c0bd73"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipo_documento}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="170" y="16" width="81" height="14" uuid="e1ef98f8-9fad-4672-a7a4-1f013a836455"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[No. Documento:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="253" y="16" width="74" height="14" uuid="1c0dc809-f3e7-48b0-8acf-c5e8ad733015"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="173" y="30" width="37" height="14" uuid="2bd9d9ee-e5fc-4d9f-9058-e57edafa1ec6"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[Nivel:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="210" y="30" width="100" height="14" uuid="bc25badf-3098-4c4f-931f-6d7fd576e7ba"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nivel}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="332" y="30" width="56" height="14" uuid="7b1f3df4-ade5-4d7e-9135-e7aa3c642b3b"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[Categoría:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="388" y="30" width="154" height="14" uuid="67bf1261-0ece-483a-80ba-6549c4ece885"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="44" y="47" width="44" height="14" uuid="ca5dfe23-5cf4-4dc9-8fd9-8d2fcf978f80"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="93" y="47" width="285" height="14" uuid="65ac8a14-363d-4175-8a76-ff6b3913117e"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="388" y="47" width="53" height="14" uuid="d53c1310-b747-432c-b37d-46bbafb5fada"/>
+					<textElement textAlignment="Center">
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[Precio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="458" y="48" width="63" height="14" uuid="cb493a6f-01c9-4a1e-aeeb-5ef989761f29"/>
+					<textElement textAlignment="Center">
+						<font fontName="Calibri"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<line>
+					<reportElement x="22" y="2" width="521" height="1" uuid="fb173d98-2b13-4e6b-8462-f4f0922d1c77"/>
+				</line>
+				<line>
+					<reportElement x="44" y="48" width="477" height="1" uuid="0db67099-5778-40ea-97b0-77644e1504ae"/>
+				</line>
+				<line>
+					<reportElement x="44" y="61" width="477" height="1" uuid="6574f664-3526-4ce4-a12b-553ac10c4b84"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="15">
+				<textField>
+					<reportElement x="458" y="0" width="63" height="15" uuid="3666c002-c351-483d-b929-9e3f6e72a131"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="161" splitType="Stretch">
+			<textField>
+				<reportElement x="101" y="16" width="442" height="20" uuid="fc20af70-b8fc-4058-8307-67f96046e041"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{HOTEL}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="22" y="16" width="62" height="76" uuid="575fbf50-6b6b-4a87-bebb-ade7169261c4"/>
+				<imageExpression><![CDATA["logo_hotel.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="101" y="36" width="442" height="14" uuid="91b49c07-a7f1-41de-bf59-315784cf9e1b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{REPRESENTANTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="50" width="442" height="14" uuid="7daa9014-9c58-428a-8d1a-71a3d171b297"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{DIRECCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="64" width="442" height="14" uuid="3e78d362-acc6-41ea-bcb9-da92ffbe6254"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{EMAIL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="78" width="442" height="14" uuid="480be3cb-bccf-4ec8-a4ad-ce8ea4932c53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{TELEFONO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="22" y="94" width="521" height="1" uuid="d5b0a2b6-3744-499b-9c8e-ff7d0e8a9eed"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="22" y="97" width="521" height="20" uuid="31a75f84-cb69-445e-9464-e829399c4636"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recaudaciones por Hospedajes y Servicios]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="22" y="122" width="521" height="13" uuid="41392613-6efe-4957-9af4-9f0451c2f719"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{FECHA_BUSQUEDA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="44" y="0" width="44" height="14" uuid="bf87d932-37da-4bf7-9fd6-794391b3c97c"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="0" width="285" height="14" uuid="c51da67c-2a17-41bb-b76e-5b286fff26e1"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="388" y="0" width="53" height="14" uuid="3c280148-cf03-4835-83e6-cdf02cd19786"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="458" y="0" width="63" height="14" uuid="86378b31-76d8-4bd5-8327-c9e0b2d17310"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="44" y="14" width="477" height="1" uuid="aa4001b7-1ab8-43bc-9279-d7a03ba20fda"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="21" y="35" width="521" height="1" uuid="21a826ae-aa3d-4bf4-aab2-668326e3aa9c"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="458" y="0" width="63" height="20" uuid="214f107d-6c7f-4ef3-bd8b-e8878ee5fdbf"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="358" y="0" width="100" height="20" uuid="fee4aff4-a978-4048-966d-da1e491124c6"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="24" y="0" width="518" height="1" uuid="5ff91c41-1e20-4468-84ba-75e1f345bc03"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

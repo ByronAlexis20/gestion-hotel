@@ -111,7 +111,7 @@ public class ReservaEditar {
 	    
 	    int dias=(int) ((dtpFechaSalida.getValue().getTime()-dtpFechaInicio.getValue().getTime())/86400000);
 	    
-		System.out.println("Hay "+dias+" dias de diferencia");
+		System.out.println("Hay "+dias+" dias de diferencia reserva");
 		txtNumNoches.setText(String.valueOf(dias));
 	    
 	    //calcular el precio total

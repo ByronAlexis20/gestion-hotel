@@ -16,7 +16,10 @@ import java.util.List;
 			+ "where r.estadoReservaS = 'PENDIENTE' and r.estado = 'A' order by r.idReserva desc"),
 	@NamedQuery(name="Reserva.buscarPendientesDiaActual", query="SELECT r FROM Reserva r "
 			+ "where r.estadoReservaS = 'PENDIENTE' and r.estado = 'A' and r.fechaEntrada = :fecha "
-			+ "and (lower(r.cliente.nombres) like(:patron) or lower(r.cliente.apellidos) like(:patron)) order by r.idReserva asc")
+			+ "and (lower(r.cliente.nombres) like(:patron) or lower(r.cliente.apellidos) like(:patron)) order by r.idReserva asc"),
+	@NamedQuery(name="Reserva.buscarPorHabitacion", query="SELECT r FROM Reserva r where r.estadoReservaS = 'CONFIRMADO' and "
+			+ "r.estado = 'A' and r.habitacion.numero = :numeroHabitacion and (lower(r.cliente.nombres) like(:patron) or "
+			+ "lower(r.cliente.apellidos) like(:patron)) order by r.idReserva desc")
 	
 })
 

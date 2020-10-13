@@ -1,0 +1,106 @@
+<?page title="Editar Reservaciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		vflex="1" width="50%" id="winConfirmarSalida" class="modal-title"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.salidas.ConfirmarSalida')">
+		<caption label="Realizar cobro" height="25px" class="modal-title-letters"/>
+		
+		<vlayout hflex="1">
+			<div style="margin-top:0px">
+				<label value="Datos de la Reserva"
+					style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:0px;" height="1px"/>
+			<div hflex="1">
+				<label value="Número de Habitación: "/>
+				<textbox id="txtNumeroHabitacion" width="100px" readonly="true" placeholder="Número de Habitación"/>
+				<separator orient="vertical" width="10px"/>
+				<label value="Categoría: "/>
+				<textbox id="txtCategoria" placeholder="categoria" hflex="1"  readonly="true"/>
+			</div>
+			<div hflex="1">
+				<label value="Detalles: "/>
+				<textbox id="txtDetalles" multiline="true" hflex="1" height="30px" placeholder="detalles" readonly="true"/>
+				<label value="Nivel/Piso: "/>
+				<textbox id="txtNivel" placeholder="Nivel/Piso" hflex="1" readonly="true"/>
+			</div>
+			<div hflex="1">
+				<label value="Cliente: "/>
+				<textbox id="txtCliente" placeholder="Cliente" hflex="1" readonly="true"/>
+				<separator orient="vertical" width="10px"/>
+				<label value="Precio x día: "/>
+				<textbox id="txtPrecioDia" placeholder="Precio por dia" hflex="1" readonly="true"/>
+			</div>
+			<div hflex="1">
+				<label value="Fecha Inicio: "/>
+				<textbox id="txtFechaInicio" width="15%" placeholder="Fecha inicio" readonly="true"/>
+				<label value="Fecha Fin: "/>
+				<datebox id="dtpFechaFin"  width="15%" onChange="@command('seleccionaFechaFin')"/>
+				<label value="Dias: "/>
+				<textbox id="txtDias" placeholder="Dias" readonly="true" width="10%"/>
+				<label value="Total x hospedaje: "/>
+				<textbox id="txtTotalHospedaje" placeholder="Dias" width="10%" readonly="true"/>
+			</div>
+			<div style="margin-top:0px">
+				<label value="Servicios Adicionales"
+					style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:0px;" height="1px"/>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstServicios" model="@load(vm.listaServicios)" 
+					mold="paging" height="100px" >
+					<listhead>
+						<listheader label="Servicio" class="lb-listheader"/>
+						<listheader label="Cantidad" width="15%" align="center" class="lb-listheader"/>
+						<listheader label="P. Unitario" align="center" width="15%" class="lb-listheader"/>
+						<listheader label="Total" width="15%" align="center" class="lb-listheader"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.servicio.servicio)" class="lb-listcell"/>
+							<listcell label="@load(each.cantidad)" class="lb-listcell"/>
+							<listcell label="@load(each.precio)" class="lb-listcell"/>
+							<listcell label="@load(each.total)" class="lb-listcell"/>
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+			<div style="margin-top:0px">
+				<label value="Otros Valores"
+					style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:0px;" height="1px"/>
+			<div hflex="1" align="center">
+				<label value="Valor total: "/>
+				<textbox id="txtSubtotal" placeholder="Subtotal" width="10%" readonly="true"/>
+				<label value="Valor Adelantado: "/>
+				<textbox id="txtAdelanto" placeholder="Adelanto" width="10%" readonly="true"/>
+				<label value="Adicional: "/>
+				<textbox id="txtAdicional" placeholder="Adicional" width="10%" onBlur="@command('sumarValoresTotales')"/>
+				<label value="Descuento: "/>
+				<textbox id="txtDescuento" placeholder="Descuento" width="10%" onBlur="@command('sumarValoresTotales')"/>
+			</div>
+			<hbox hflex="1" pack="center">
+				 	<label value="Total a Pagar: "/>
+				 	<textbox id="txtTotalPagar" width="100px" placeholder="total" readonly="true"/>
+			</hbox>
+			<div style="margin-top:0px">
+				<label value="Incidencias"
+					style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:0px;" height="1px"/>
+			<textbox id="txtIncidencias" multiline="true" hflex="1" placeholder="Incidencias ocurridas en el hospedaje"/>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>

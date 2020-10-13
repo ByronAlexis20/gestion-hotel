@@ -110,9 +110,9 @@ public class RegistroRecepcion {
 	@Command
 	public void seleccionaFechaFin() {
 	    
-	    int dias=(int) ((dtpFechaSalida.getValue().getTime()-dtpFechaInicio.getValue().getTime())/86400000);
-	    
-		System.out.println("Hay "+dias+" dias de diferencia");
+		int dias=(int) ((dtpFechaSalida.getValue().getTime()-dtpFechaInicio.getValue().getTime())/86400000);
+	    dias = dias + 1;
+		System.out.println("Hay "+dias+" dias de diferencia recepcion");
 		txtNumNoches.setText(String.valueOf(dias));
 	    
 	    //calcular el precio total

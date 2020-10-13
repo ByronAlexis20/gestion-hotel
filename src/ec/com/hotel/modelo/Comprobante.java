@@ -18,7 +18,7 @@ public class Comprobante implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_comprobante")
-	private int idComprobante;
+	private Integer idComprobante;
 
 	private String estado;
 
@@ -38,17 +38,17 @@ public class Comprobante implements Serializable {
 	private Reserva reserva;
 
 	//bi-directional many-to-one association to ComprobanteDetalle
-	@OneToMany(mappedBy="comprobante")
+	@OneToMany(mappedBy="comprobante",cascade = CascadeType.ALL)
 	private List<ComprobanteDetalle> comprobanteDetalles;
 
 	public Comprobante() {
 	}
 
-	public int getIdComprobante() {
+	public Integer getIdComprobante() {
 		return this.idComprobante;
 	}
 
-	public void setIdComprobante(int idComprobante) {
+	public void setIdComprobante(Integer idComprobante) {
 		this.idComprobante = idComprobante;
 	}
 

@@ -17,7 +17,7 @@ public class ComprobanteDetalle implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_detalle_comprobante")
-	private int idDetalleComprobante;
+	private Integer idDetalleComprobante;
 
 	private int cantidad;
 
@@ -42,11 +42,11 @@ public class ComprobanteDetalle implements Serializable {
 	public ComprobanteDetalle() {
 	}
 
-	public int getIdDetalleComprobante() {
+	public Integer getIdDetalleComprobante() {
 		return this.idDetalleComprobante;
 	}
 
-	public void setIdDetalleComprobante(int idDetalleComprobante) {
+	public void setIdDetalleComprobante(Integer idDetalleComprobante) {
 		this.idDetalleComprobante = idDetalleComprobante;
 	}
 

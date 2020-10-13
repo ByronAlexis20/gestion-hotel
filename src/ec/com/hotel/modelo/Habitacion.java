@@ -8,7 +8,9 @@ import java.util.List;
 @Table(name="habitacion")
 @NamedQueries({
 	@NamedQuery(name="Habitacion.findAll", query="SELECT h FROM Habitacion h"),
-	@NamedQuery(name="Habitacion.buscarPorPatron", query="SELECT h FROM Habitacion h where h.numero like :patron and h.estado = 'A'")
+	@NamedQuery(name="Habitacion.buscarPorPatron", query="SELECT h FROM Habitacion h where h.numero like :patron and h.estado = 'A'"),
+	@NamedQuery(name="Habitacion.buscarPorEstadoReserva", query="SELECT h FROM Habitacion h where h.numero like :patron and h.estado = 'A'"
+			+ " and h.estadoReserva = :estadoReserva")
 })
 public class Habitacion implements Serializable {
 	private static final long serialVersionUID = 1L;

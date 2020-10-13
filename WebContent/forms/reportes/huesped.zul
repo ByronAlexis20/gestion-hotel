@@ -1,0 +1,47 @@
+<?page title="Lista de huespedes" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.reportes.Huesped')"
+		hflex="1" vflex="1">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<image src="/imagenes/ic_listado_negro.png"
+					width="30px" />
+				<label value="Consulta de Huéspedes"
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<div hflex="1">
+				<hlayout hflex="1">
+					<div hflex="1">
+						<button label="Descargar Reporte" zclass="but btn-form btn-sm"
+							iconSclass="z-icon-plus" onClick="@command('descargarReporte')" />
+					</div>
+				</hlayout>
+			</div>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstHuespedes" model="@load(vm.clienteLista)" autopaging="true"
+					mold="paging" hflex="1" vflex="1">
+					<listhead>
+						<listheader label="Tipo de documento" align="center" width="15%" class="lb-listheader"/>
+						<listheader label="No. Documento" align="center" width="15%" class="lb-listheader"/>
+						<listheader label="Nombres" class="lb-listheader"/>
+						<listheader label="Apellidos" class="lb-listheader"/>
+						<listheader label="Celular" align="center" width="10%" class="lb-listheader"/>
+						<listheader label="Estado" width="7%" align="center" class="lb-listheader"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.tipoDocumento.tipoDocumento)" class="lb-listcell"/>
+							<listcell label="@load(each.numeroDocumento)" class="lb-listcell"/>
+							<listcell label="@load(each.nombres)" class="lb-listcell"/>
+							<listcell label="@load(each.apellidos)" class="lb-listcell"/>
+							<listcell label="@load(each.celular)" class="lb-listcell"/>
+							<listcell label="@load(each.estado)" class="lb-listcell"/>
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

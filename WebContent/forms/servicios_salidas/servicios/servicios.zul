@@ -1,0 +1,47 @@
+<?page title="Selección de Habitaciones" contentType="text/html;charset=UTF-8"?>
+
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none" mode="overlapped"
+		vflex="1" width="40%" id="winServicios" class="modal-title"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.salidas.Servicios')">
+		<caption label="Habitaciones disponibles" height="25px" class="modal-title-letters"/>
+		<vlayout>
+			<div style="margin-top:10px">
+				<label value="Servicios"
+					style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstServicios" model="@load(vm.listaServicios)" autopaging="true"
+					mold="paging" height="250px" >
+					<listhead>
+						<listheader label="Servicio" class="lb-listheader"/>
+						<listheader label="Precio" align="center" class="lb-listheader"/>
+						<listheader label="Acción" width="16%" align="center" class="lb-listheader"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.servicio)" class="lb-listcell"/>
+							<listcell label="@load(each.precio)" class="lb-listcell"/>
+							<listcell>
+								<div align="center">
+									<button label="Agregar"  zclass="btn-editar btn-size"
+									 	onClick="@command('seleccionarServicio',servicio=each)" />
+								</div>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+			
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>

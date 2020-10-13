@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpHospedajeResumido" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13572203-9800-4950-a245-45f77f06498f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Hotel Montoya"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FECHA_INICIO" class="java.util.Date"/>
+	<parameter name="FECHA_FIN" class="java.util.Date"/>
+	<parameter name="HOTEL" class="java.lang.String"/>
+	<parameter name="REPRESENTANTE" class="java.lang.String"/>
+	<parameter name="DIRECCION" class="java.lang.String"/>
+	<parameter name="EMAIL" class="java.lang.String"/>
+	<parameter name="TELEFONO" class="java.lang.String"/>
+	<parameter name="FECHA_BUSQUEDA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select (SELECT sum(c.total)
+from comprobante_detalle c, comprobante co
+where c.id_servicio = 1 and c.id_comprobante = co.id_comprobante
+and c.estado = 'A' and co.estado = 'A' and
+(co.fecha between  $P{FECHA_INICIO} and  $P{FECHA_FIN})) as total_hospedaje,
+
+(SELECT sum(c.total)
+from comprobante_detalle c, comprobante co
+where c.id_servicio <> 1 and c.id_comprobante = co.id_comprobante
+and c.estado = 'A' and co.estado = 'A' and
+(co.fecha between  $P{FECHA_INICIO} and  $P{FECHA_FIN})) as total_servicios,
+
+(
+ (SELECT sum(c.total)
+from comprobante_detalle c, comprobante co
+where c.id_servicio = 1 and c.id_comprobante = co.id_comprobante
+and c.estado = 'A' and co.estado = 'A' and
+(co.fecha between  $P{FECHA_INICIO} and  $P{FECHA_FIN}))
+    +
+(SELECT sum(c.total)
+from comprobante_detalle c, comprobante co
+where c.id_servicio <> 1 and c.id_comprobante = co.id_comprobante
+and c.estado = 'A' and co.estado = 'A' and
+(co.fecha between  $P{FECHA_INICIO} and  $P{FECHA_FIN}))
+) AS total_recaudado]]>
+	</queryString>
+	<field name="total_hospedaje" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total_hospedaje"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_hospedaje"/>
+	</field>
+	<field name="total_servicios" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total_servicios"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_servicios"/>
+	</field>
+	<field name="total_recaudado" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total_recaudado"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_recaudado"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="151" splitType="Stretch">
+			<textField>
+				<reportElement x="101" y="16" width="442" height="20" uuid="e795b190-d2e0-437c-83de-6dbbf3335820"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{HOTEL}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="22" y="16" width="62" height="76" uuid="ed0a97b9-af10-4dc0-8112-7e0f950a222a"/>
+				<imageExpression><![CDATA["logo_hotel.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="101" y="36" width="442" height="14" uuid="2a4d3be0-7013-44e3-a127-870376062c58"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{REPRESENTANTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="50" width="442" height="14" uuid="c38d33bc-8016-4fab-8e7d-ca0e590c3676"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{DIRECCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="64" width="442" height="14" uuid="a3a04a6f-f24d-4932-8bd4-1bc234b432a4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{EMAIL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="78" width="442" height="14" uuid="586c339b-4525-4ffb-9528-b30faddd0250"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{TELEFONO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="22" y="94" width="521" height="1" uuid="6dfd4edc-cf37-4bda-b820-2408ed113768"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="22" y="97" width="521" height="20" uuid="438f917c-267d-4492-9ecc-f8482d2c4575"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recaudaciones por Hospedajes y Servicios]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="22" y="122" width="521" height="13" uuid="171d306f-2618-4543-a881-a4394cdda014"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{FECHA_BUSQUEDA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="122" splitType="Stretch">
+			<textField>
+				<reportElement x="282" y="22" width="84" height="20" uuid="37588b90-89f7-487b-8761-4b015182bbdc"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_hospedaje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="52" width="84" height="20" uuid="90e940bb-9898-40ee-8ffc-cd856c2dbda6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_servicios}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="140" y="22" width="122" height="20" uuid="b8a0a976-6de0-4ae8-8a70-058adefa0d56"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Hospedaje:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="52" width="122" height="20" uuid="dc397033-dd68-4535-9773-636b3992c991"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Servicios:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="140" y="80" width="226" height="1" uuid="9e9fb530-4bb5-47a1-8afc-0b64ffa746c4"/>
+			</line>
+			<staticText>
+				<reportElement x="140" y="88" width="122" height="20" uuid="6bac5f55-980b-48dd-92b6-d4df309eca49"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="282" y="88" width="84" height="20" uuid="42d33137-e2c2-4350-8ede-b520d5f6ec46"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_recaudado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="22" y="29" width="521" height="1" uuid="8c590479-6c03-4e6a-93bc-961062cc354e"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

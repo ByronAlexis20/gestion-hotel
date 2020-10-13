@@ -44,7 +44,7 @@
 							<listcell label="@load(each.estadoReserva)" class="lb-listcell"/>
 							<listcell>
 								<div align="center">
-									<button label="Registrar" iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
+									<button label="@load(each.estadoReserva eq 'LIMPIEZA' ? 'Liberar' : each.estadoReserva eq 'OCUPADO' ? 'Ocupado' : 'Reservar')" iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
 									 	onClick="@command('registrarIngreso',habitacion=each)" />
 								</div>
 							</listcell>

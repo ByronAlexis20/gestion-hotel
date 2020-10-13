@@ -9,14 +9,14 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Adicional.findAll", query="SELECT a FROM Adicional a")
+@NamedQuery(name="Adicional.buscarPorReserva", query="SELECT a FROM Adicional a where a.estado = 'A' and a.reserva.idReserva = :id")
 public class Adicional implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_adicional")
-	private int idAdicional;
+	private Integer idAdicional;
 
 	private int cantidad;
 
@@ -39,11 +39,11 @@ public class Adicional implements Serializable {
 	public Adicional() {
 	}
 
-	public int getIdAdicional() {
+	public Integer getIdAdicional() {
 		return this.idAdicional;
 	}
 
-	public void setIdAdicional(int idAdicional) {
+	public void setIdAdicional(Integer idAdicional) {
 		this.idAdicional = idAdicional;
 	}
 

@@ -119,17 +119,46 @@ public class HabitacionDisponible {
 			}
 		});		
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	public void registrarIngreso(@BindingParam("habitacion") Habitacion seleccion){
 		if (seleccion == null) {
 			Clients.showNotification("Seleccione una opción de la lista.");
 			return; 
 		}
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("Habitacion", seleccion);
-		params.put("Fecha", new Date());
-		Window ventanaCargar = (Window) Executions.createComponents("/forms/reservas_recepcion/recepcion/registroRecepcion.zul", null, params);
-		ventanaCargar.doModal();
+		if(seleccion.getEstadoReserva().equals(Constantes.HABITACION_OCUPADA)) {
+			Clients.showNotification("La Habita.");
+			return;
+		}
+		if(seleccion.getEstadoReserva().equals(Constantes.HABITACION_LIMPIEZA)) {
+			Messagebox.show("Terminar el proceso de LIMPIEZA?", "Confirmación de Eliminación", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals("onYes")) {
+						try {
+							reservaDAO.getEntityManager().getTransaction().begin();
+							seleccion.setEstadoReserva(Constantes.HABITACION_DISPONIBLE);
+							reservaDAO.getEntityManager().merge(seleccion);
+							reservaDAO.getEntityManager().getTransaction().commit();;
+							// Actualiza la lista
+							//BindUtils.postGlobalCommand(null, null, "Categoria.buscarPorPatron", null);
+							buscar();
+							Clients.showNotification("Transaccion ejecutada con exito.");
+						} catch (Exception e) {
+							e.printStackTrace();
+							reservaDAO.getEntityManager().getTransaction().rollback();
+						}
+					}
+				}
+			});	
+		}else {
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("Habitacion", seleccion);
+			params.put("Fecha", new Date());
+			Window ventanaCargar = (Window) Executions.createComponents("/forms/reservas_recepcion/recepcion/registroRecepcion.zul", null, params);
+			ventanaCargar.doModal();
+		}
 	}
 	
 	public String getTextoBuscar() {

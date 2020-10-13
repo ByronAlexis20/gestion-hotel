@@ -38,12 +38,14 @@ public class IngresoLista {
 	Reserva reservaSeleccionada;
 	List<Reserva> listaReserva;
 	ReservaDAO reservaDAO = new ReservaDAO();
+	Date fecha;
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
 		textoBuscar = "";
+		fecha = new Date();
 		buscar();
-		lblTitulo.setValue("Registro de ingresos (Reservas de hoy " + new SimpleDateFormat("dd/MM/yyyy").format(new Date()) + ")");
+		lblTitulo.setValue("Registro de ingresos (Reservas de hoy " + new SimpleDateFormat("dd/MM/yyyy").format(fecha) + ")");
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -54,7 +56,7 @@ public class IngresoLista {
 		if (listaReserva != null) {
 			listaReserva = null; 
 		}
-		listaReserva = reservaDAO.getReservasPendientesDiaActual(new Date(),textoBuscar);
+		listaReserva = reservaDAO.getReservasPendientesDiaActual(fecha,textoBuscar);
 		lstReserva.setModel(new ListModelList(listaReserva));
 		if(listaReserva.size() == 0) {
 			Clients.showNotification("No hay datos para mostrar.!!");
@@ -119,5 +121,14 @@ public class IngresoLista {
 	}
 	public void setReservaSeleccionada(Reserva reservaSeleccionada) {
 		this.reservaSeleccionada = reservaSeleccionada;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}	
+	
 }

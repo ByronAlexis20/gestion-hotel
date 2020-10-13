@@ -34,5 +34,16 @@ public class ReservaDAO extends ClaseDAO{
 		query.setParameter("patron","%" + patron.toLowerCase() + "%");
 		resultado = (List<Reserva>) query.getResultList();
 		return resultado;
+	} 
+	
+	@SuppressWarnings("unchecked")
+	public List<Reserva> buscarPorHabitacion(String patron,String numeroHabitacion) {
+		List<Reserva> resultado = new ArrayList<Reserva>(); 
+		Query query = getEntityManager().createNamedQuery("Reserva.buscarPorHabitacion");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("numeroHabitacion", numeroHabitacion);
+		query.setParameter("patron","%" + patron.toLowerCase() + "%");
+		resultado = (List<Reserva>) query.getResultList();
+		return resultado;
 	}
 }

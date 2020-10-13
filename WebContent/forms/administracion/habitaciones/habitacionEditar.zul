@@ -18,7 +18,27 @@
 						</cell>
 						<cell>
 							<textbox class="form-control form-control-sm" placeholder="Número de la habitación"
-								id="txtNumHabitacion" value="@bind(vm.habitacion.numero)" />
+								id="txtNumHabitacion" value="@bind(vm.habitacion.numero)" xmlns:w="client" maxlength="8">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
+										}
+									}
+								]]></attribute>
+							</textbox>
 						</cell>
 					</row>
 					<row>
@@ -51,7 +71,27 @@
 							<textbox
 								class="form-control form-control-sm" placeholder="Número de camas"
 								id="txtNumCamas" 
-								value="@bind(vm.habitacion.numeroCamas)" />
+								value="@bind(vm.habitacion.numeroCamas)" xmlns:w="client" maxlength="8">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
+										}
+									}
+								]]></attribute>
+							</textbox>
 						</cell>
 					</row>
 					<row>
@@ -66,9 +106,9 @@
 					<row>
 						<cell class="label-form">Precio:</cell>
 						<cell>
-							<textbox
+							<doublebox
 								class="form-control form-control-sm" placeholder="Precio por día"
-								id="txtPrecio"
+								id="txtPrecio" format=",###.#" constraint="no empty,no negative"
 								value="@bind(vm.habitacion.precio)" /> 
 						</cell>
 					</row>
