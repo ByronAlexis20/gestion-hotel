@@ -21,6 +21,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Doublebox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -34,6 +35,7 @@ import ec.com.hotel.modelo.ReservaDAO;
 import ec.com.hotel.modelo.TipoDocumento;
 import ec.com.hotel.modelo.TipoDocumentoDAO;
 import ec.com.hotel.utils.Constantes;
+import ec.com.hotel.utils.ControllerHelper;
 
 public class ReservaEditar {
 	@Wire Window winReservaEditar;
@@ -59,7 +61,7 @@ public class ReservaEditar {
 	@Wire Datebox dtpFechaSalida;
 	@Wire Textbox txtNumNoches;
 	@Wire Textbox txtPrecioTotal;
-	@Wire Textbox txtAdelanto;
+	@Wire Doublebox txtAdelanto;
 	
 	
 	Reserva reserva;
@@ -69,6 +71,8 @@ public class ReservaEditar {
 	TipoDocumentoDAO tipoDocumentoDAO = new TipoDocumentoDAO();
 	EstadoPagoDAO estadoPagoDAO = new EstadoPagoDAO();
 	ReservaDAO reservaDAO = new ReservaDAO();
+	TipoDocumento documentoSeleccionado;
+	ControllerHelper helper = new ControllerHelper();
 	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
@@ -86,8 +90,32 @@ public class ReservaEditar {
 			dtpFechaSalida.setConstraint("after " + new SimpleDateFormat("yyyyMMdd").format(fecha));
 		}
 		reserva = new Reserva();
+		
+		//bloquear los datos del cliente hasta q se seleccione el tipo de documento
+		txtNumeroDocumento.setDisabled(true);
+		txtNombres.setDisabled(true);
+		txtApellidos.setDisabled(true);		
+		txtCorreo.setDisabled(true);
+		documentoSeleccionado = null;
 	}
 	
+	@Command
+	public void cambiarTipoDocumento() {
+		if(documentoSeleccionado != null) {
+			txtNumeroDocumento.setDisabled(false);
+			txtNumeroDocumento.setText("");
+			txtNumeroDocumento.setMaxlength(documentoSeleccionado.getDigitos());
+			txtNombres.setDisabled(false);
+			txtApellidos.setDisabled(false);
+			txtCorreo.setDisabled(false);
+		}else {
+			txtNumeroDocumento.setDisabled(true);
+			txtNumeroDocumento.setText("");
+			txtNombres.setDisabled(true);
+			txtApellidos.setDisabled(true);
+			txtCorreo.setDisabled(true);
+		}
+	}
 	
 	@Command
 	public void buscarCiente() {
@@ -124,6 +152,40 @@ public class ReservaEditar {
 	public boolean isValidarDatos() {
 		try {
 			Boolean retorna = true;
+			if(cboTipoDocumento.getSelectedIndex() == -1) {
+				Clients.showNotification("Debe seleccionar tipo de documento","info",cboTipoDocumento,"end_center",2000);
+				return retorna;
+			}
+			//validar el tipo de documento
+			if(documentoSeleccionado.getDigitos() == 10) {// es una cedula
+				if(txtNumeroDocumento.getText().length() < documentoSeleccionado.getDigitos()) {
+					Clients.showNotification("El número de cédula no tiene la cantidad de digitos obligatorios [10]","info",txtNumeroDocumento,"end_center",2000);
+					txtNumeroDocumento.focus();
+					return true;
+				}
+				if(!helper.validarDeCedula(txtNumeroDocumento.getText())) {
+					Clients.showNotification("Número de CÉDULA NO VÁLIDA!","info",txtNumeroDocumento,"end_center",2000);
+					txtNumeroDocumento.focus();
+					return true;
+				}
+			}else if(documentoSeleccionado.getDigitos() == 13) {// es un ruc
+				if(txtNumeroDocumento.getText().length() < documentoSeleccionado.getDigitos()) {
+					Clients.showNotification("El número de ruc no tiene la cantidad de digitos obligatorios [13]","info",txtNumeroDocumento,"end_center",2000);
+					txtNumeroDocumento.focus();
+					return true;
+				}
+				if(!helper.validarRuc(txtNumeroDocumento.getText())) {
+					Clients.showNotification("Número de RUC NO VÁLIDO!","info",txtNumeroDocumento,"end_center",2000);
+					txtNumeroDocumento.focus();
+					return true;
+				}
+			}
+			//luego preguntar si el numero de documento ya se encuentra sobre los registros
+			if(validarClienteExistente() == true) {
+				Clients.showNotification("Ya hay un Cliente con el número de documento " + txtNumeroDocumento.getText() + "!","info",txtNumeroDocumento,"end_center",2000);
+				txtNumeroDocumento.focus();
+				return true;
+			}
 			if(txtNumeroDocumento.getText().isEmpty()) {
 				Clients.showNotification("Obligatoria regitrar el número de documento","info",txtNumeroDocumento,"end_center",2000);
 				return retorna;
@@ -145,7 +207,26 @@ public class ReservaEditar {
 		}
 		return false;
 	}
-
+	/** Validar si el cliente existe a traves de la cedula */
+	private boolean validarClienteExistente() {
+		try {
+			boolean bandera = false;
+			List<Cliente> listaUsuario;
+			if (huesped.getIdCliente() == null) {
+				listaUsuario = huespedDAO.getValidarClienteExistente(txtNumeroDocumento.getText().toString());
+			}else {
+				listaUsuario = huespedDAO.getValidarClienteExistenteDiferente(txtNumeroDocumento.getText().toString(),huesped.getIdCliente());
+			}
+			
+			if(listaUsuario.size() != 0)
+				bandera = true;
+			else
+				bandera = false;
+			return bandera;
+		}catch(Exception ex) {
+			return false;
+		}
+	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	public void grabar(){
@@ -251,5 +332,11 @@ public class ReservaEditar {
 	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+	public TipoDocumento getDocumentoSeleccionado() {
+		return documentoSeleccionado;
+	}
+	public void setDocumentoSeleccionado(TipoDocumento documentoSeleccionado) {
+		this.documentoSeleccionado = documentoSeleccionado;
 	}
 }

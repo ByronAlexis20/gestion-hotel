@@ -9,7 +9,9 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Cliente.buscarPorPatron", query="SELECT c FROM Cliente c where (lower(c.nombres) "
 			+ "like(:patron) or lower(c.apellidos) like(:patron)) and c.estado = 'A'"),
-	@NamedQuery(name="Cliente.buscarPorCedula", query="SELECT c FROM Cliente c where c.numeroDocumento = :cedula and c.estado = 'A'")
+	@NamedQuery(name="Cliente.buscarPorCedula", query="SELECT c FROM Cliente c where c.numeroDocumento = :cedula and c.estado = 'A'"),
+	@NamedQuery(name="Cliente.buscarPorCedulaDiferenteAlUsuarioActual", query="SELECT c FROM Cliente c where c.numeroDocumento = :cedula and c.estado = 'A' "
+			+ "and c.idCliente <> :idCliente"),
 })
 
 public class Cliente implements Serializable {

@@ -23,9 +23,11 @@ public class TipoDocumento implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_tipo_documento")
-	private int idTipoDocumento;
+	private Integer idTipoDocumento;
 
 	private String estado;
+	
+	private Integer digitos;
 
 	@Column(name="tipo_documento")
 	private String tipoDocumento;
@@ -107,6 +109,14 @@ public class TipoDocumento implements Serializable {
 		usuario.setTipoDocumento(null);
 
 		return usuario;
+	}
+
+	public Integer getDigitos() {
+		return digitos;
+	}
+
+	public void setDigitos(Integer digitos) {
+		this.digitos = digitos;
 	}
 
 }

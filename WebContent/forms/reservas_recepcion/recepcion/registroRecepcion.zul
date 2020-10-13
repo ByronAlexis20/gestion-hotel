@@ -38,7 +38,8 @@
 					</div>
 					<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
 					<label value="Tipo de Documento"/>
-					<combobox id="cboTipoDocumento" hflex="1" model="@load(vm.tipoDocumentos)" readonly="true">
+					<combobox id="cboTipoDocumento" hflex="1" model="@load(vm.tipoDocumentos)" onChange="@command('cambiarTipoDocumento')" 
+						readonly="true" selectedItem="@bind(vm.documentoSeleccionado)">
 						<template name="model">
 							<comboitem label="${each.tipoDocumento}" />
 						</template>
@@ -46,7 +47,27 @@
 					<label value="No. Documento"/>
 					<div hflex="1">
 						<textbox id="txtNumeroDocumento" width="80%" placeholder="Número de documento" onBlur="@command('buscarCiente')" 
-						onOK="@command('buscarCiente')"/>
+						onOK="@command('buscarCiente')" xmlns:w="client">
+							<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
+										}
+									}
+								]]></attribute>
+						</textbox>
 						<button id="btnBuscarCliente" width="18%" iconSclass="z-icon-search" onClick="@command('buscarCiente')"/>
 					</div>
 					<hbox hflex="1">
@@ -91,7 +112,7 @@
 						</vbox>
 						<vbox hflex="1">
 							<label value="Adelanto:"/>
-							<textbox id="txtAdelanto" hflex="1"/>
+							<doublebox id="txtAdelanto" hflex="1" format="####0.00" constraint="no negative"/>
 						</vbox>
 					</hbox>
 				</vbox>

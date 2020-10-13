@@ -108,7 +108,7 @@
 						<cell>
 							<doublebox
 								class="form-control form-control-sm" placeholder="Precio por día"
-								id="txtPrecio" format=",###.#" constraint="no empty,no negative"
+								id="txtPrecio" format="####0.00" constraint="no empty,no negative"
 								value="@bind(vm.habitacion.precio)" /> 
 						</cell>
 					</row>

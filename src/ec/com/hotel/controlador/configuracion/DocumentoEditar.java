@@ -22,6 +22,7 @@ import ec.com.hotel.modelo.TipoDocumentoDAO;
 public class DocumentoEditar {
 	@Wire private Window winDocumentoEditar;
 	@Wire private Textbox descripcion;
+	@Wire private Textbox digitos;
 
 	private TipoDocumentoDAO tipoDocumentoDAO = new TipoDocumentoDAO();
 	private TipoDocumento tipoDocumento;
@@ -45,6 +46,10 @@ public class DocumentoEditar {
 				Clients.showNotification("Obligatoria regitrar la descripcion del tipo de documento","info",descripcion,"end_center",2000);
 				return retorna;
 			}			
+			if(digitos.getText().isEmpty()) {
+				Clients.showNotification("Obligatoria regitrar la cantidad de dígitos","info",digitos,"end_center",2000);
+				return retorna;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

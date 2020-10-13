@@ -13,6 +13,46 @@
 				</columns>
 				<rows>
 					<row>
+						<cell class="label-form">Tipo de documento:</cell>
+						<cell>
+							<combobox id="cboTipoDocumento" hflex="1"
+								model="@load(vm.tiposDocumentos)" onChange="@command('cambiarTipoDocumento')"
+								readonly="true" selectedItem="@bind(vm.documentoSeleccionado)">
+								<template name="model">
+									<comboitem label="${each.tipoDocumento}" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">No. Documento:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" placeholder="Número de documento"
+								id="txtNoDocumento" hflex="1" value="@bind(vm.huesped.numeroDocumento)" xmlns:w="client">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
+										}
+									}
+								]]></attribute>
+							</textbox>
+						</cell>
+					</row>
+					<row>
 						<cell class="label-form">Nombres:</cell>
 						<cell>
 							<textbox
@@ -29,31 +69,31 @@
 						</cell>
 					</row>
 					<row>
-						<cell class="label-form">Tipo de documento:</cell>
-						<cell>
-							<combobox id="cboTipoDocumento" hflex="1"
-								model="@load(vm.tiposDocumentos)"
-								readonly="true">
-								<template name="model">
-									<comboitem label="${each.tipoDocumento}" />
-								</template>
-							</combobox>
-						</cell>
-					</row>
-					<row>
-						<cell class="label-form">No. Documento:</cell>
-						<cell>
-							<textbox
-								class="form-control form-control-sm" placeholder="Número de documento"
-								id="txtNoDocumento" hflex="1" value="@bind(vm.huesped.numeroDocumento)"/>
-						</cell>
-					</row>
-					<row>
 						<cell class="label-form">Celular:</cell>
 						<cell>
 							<textbox
 								class="form-control form-control-sm" placeholder="Celular del huésped"
-								id="txtCelular" hflex="1" value="@bind(vm.huesped.celular)"/>
+								id="txtCelular" hflex="1" value="@bind(vm.huesped.celular)" xmlns:w="client" maxlength="10">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
+										}
+									}
+								]]></attribute>
+							</textbox>
 						</cell>
 					</row>
 					<row>

@@ -24,4 +24,24 @@ public class ClienteDAO extends ClaseDAO{
 		resultado = (List<Cliente>) query.getResultList();
 		return resultado;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Cliente> getValidarClienteExistente(String cedulaUsuario) {
+		List<Cliente> resultado; 
+		Query query = getEntityManager().createNamedQuery("Cliente.buscarPorCedula");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("cedula", cedulaUsuario);
+		resultado = (List<Cliente>) query.getResultList();
+		return resultado;
+	}
+	@SuppressWarnings("unchecked")
+	public List<Cliente> getValidarClienteExistenteDiferente(String cedulaUsuario,Integer idCliente) {
+		List<Cliente> resultado; 
+		Query query = getEntityManager().createNamedQuery("Cliente.buscarPorCedulaDiferenteAlUsuarioActual");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("cedula", cedulaUsuario);
+		query.setParameter("idCliente", idCliente);
+		resultado = (List<Cliente>) query.getResultList();
+		return resultado;
+	}
 }
