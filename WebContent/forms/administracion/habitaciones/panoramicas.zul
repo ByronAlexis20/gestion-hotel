@@ -1,0 +1,22 @@
+<?page title="Habitaciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winPanoramicas" width="80%" height="80%" vflex="1" border="none" position="center"
+		mode="overlapped" class="modal-title"
+		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ec.com.hotel.controlador.administracion.Panoramicas')">
+		<caption label="Imagenes Panorámicas" height="25px" class="modal-title-letters"/>
+		
+		<vlayout vflex="1" hflex="1">
+			<div hflex="1" align="center">
+				<button label="Agregar Imagen" zclass="but btn-form btn-sm"
+						iconSclass="z-icon-plus" onClick="@command('agregarImagen')" />
+				<button label="Salir" zclass="but btn-form btn-sm"
+						onClick="@command('salir')" />
+			</div>
+			<div hflex="1" vflex="1">
+				<tabbox hflex="1" vflex="1" id="tbImagenesPanoramicas">
+				
+				</tabbox>
+			</div>
+		</vlayout>
+	</window>
+</zk>

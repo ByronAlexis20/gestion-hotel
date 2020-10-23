@@ -16,6 +16,8 @@
 					<div hflex="1">
 						<button label="Registrar Nueva Habitación" zclass="but btn-form btn-sm"
 							iconSclass="z-icon-plus" onClick="@command('nuevo')" />
+						<button label="Imagenes" zclass="but btn-form btn-sm"
+							iconSclass="z-icon-plus" onClick="@command('imagenes')" />
 					</div>
 					<hbox align="center">
 						<textbox value="@bind(vm.textoBuscar)" onOK="@command('buscar')"
@@ -28,7 +30,7 @@
 			</div>
 			<hlayout vflex="1" hflex="1">
 				<listbox id="lstHabitaciones" model="@load(vm.habitacionLista)" autopaging="true"
-					mold="paging" hflex="1" vflex="1">
+					mold="paging" hflex="1" vflex="1" selectedItem="@bind(vm.habitacionSeleccionada)">
 					<listhead>
 						<listheader label="No Hab." width="8%" align="center" class="lb-listheader"/>
 						<listheader label="Categoria" align="center" class="lb-listheader"/>

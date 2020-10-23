@@ -24,6 +24,7 @@ import org.zkoss.zul.Window;
 
 import ec.com.hotel.modelo.ClienteDAO;
 import ec.com.hotel.modelo.EstadoPagoDAO;
+import ec.com.hotel.modelo.Habitacion;
 import ec.com.hotel.modelo.Reserva;
 import ec.com.hotel.modelo.ReservaDAO;
 import ec.com.hotel.modelo.TipoDocumento;
@@ -97,7 +98,6 @@ public class RegistrarIngreso {
 		txtNumNoches.setText(String.valueOf(reserva.getCantidadDias()));
 		txtPrecioTotal.setText(String.valueOf(reserva.getPrecioTotal()));
 	}
-
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	public void grabar(){
@@ -106,10 +106,12 @@ public class RegistrarIngreso {
 			public void onEvent(Event event) throws Exception {
 				if (event.getName().equals("onYes")) {		
 					try {		
-						
+						Habitacion habitacion = reserva.getHabitacion();
+						habitacion.setEstadoReserva(Constantes.HABITACION_OCUPADA);
 						reservaDAO.getEntityManager().getTransaction().begin();
 						reserva.setEstadoReservaS(Constantes.RESERVA_CONFIRMADA);
 						reservaDAO.getEntityManager().merge(reserva);
+						reservaDAO.getEntityManager().merge(habitacion);
 						reservaDAO.getEntityManager().getTransaction().commit();
 						Clients.showNotification("Proceso Ejecutado con exito.");
 						BindUtils.postGlobalCommand(null, null, "Reserva.buscarPendientesDiaActual", null);

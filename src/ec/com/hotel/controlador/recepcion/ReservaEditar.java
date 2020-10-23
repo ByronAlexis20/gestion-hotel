@@ -36,6 +36,7 @@ import ec.com.hotel.modelo.TipoDocumento;
 import ec.com.hotel.modelo.TipoDocumentoDAO;
 import ec.com.hotel.utils.Constantes;
 import ec.com.hotel.utils.ControllerHelper;
+import ec.com.hotel.utils.EnviarCorreo;
 
 public class ReservaEditar {
 	@Wire Window winReservaEditar;
@@ -248,6 +249,7 @@ public class ReservaEditar {
 							reservaDAO.getEntityManager().merge(huesped);
 						}			
 						reservaDAO.getEntityManager().getTransaction().commit();
+						enviarCorreo();
 						Clients.showNotification("Proceso Ejecutado con exito.");
 						BindUtils.postGlobalCommand(null, null, "Reserva.buscarPendientes", null);
 						BindUtils.postGlobalCommand(null, null, "Habitacion.buscarPorPatron", null);
@@ -260,6 +262,38 @@ public class ReservaEditar {
 			}
 		});
 	}	
+	
+	private void enviarCorreo() {
+		String adjunto = "";
+		String[] adjuntos = adjunto.split(",");
+		String asunto;
+		String destinatario;
+		String mensaje;
+		int servidor;
+		String[] destinatarios;
+		asunto = "Reserva Generada";
+		destinatario = huesped.getCorreo();	
+		destinatarios = destinatario.split(";");
+		servidor = 0;
+		mensaje = "¡Gracias, " + huesped.getNombres() + " " + huesped.getApellidos() + "!\n";
+		mensaje = mensaje + "Se ha realizado con exito tu reserva en Conjunto Residencial Montoya\n\n";
+		mensaje = mensaje + "Te esperamos el dia: " + new SimpleDateFormat("dd/MM/yyyy").format(reserva.getFechaEntrada());
+		mensaje = mensaje + "\nPagarás directamente en la recepción de la Residencia.";
+		mensaje = mensaje + "\n\nDetalle de la Habitacion:";
+		mensaje = mensaje + "\nNúmero: " + reserva.getHabitacion().getNumero();
+		mensaje = mensaje + "\nPiso: " + reserva.getHabitacion().getNivel().getIdNivel();
+		mensaje = mensaje + "\nCategoría: " + reserva.getHabitacion().getCategoria().getCategoria();
+		mensaje = mensaje + "\nDetalles: " + reserva.getHabitacion().getDetalles();
+		mensaje = mensaje + "\n\nDisfruta Tu estadía";
+		mensaje = mensaje + "\n\n\nNota: De no llegar el dia solicitado, la reserva quedará anulada!";
+		mensaje = mensaje + "\n\n\n\nResidencia Montoya";
+		mensaje = mensaje + "\n" + Constantes.CORREO_ORIGEN;
+		
+		EnviarCorreo miHilo = new EnviarCorreo(adjunto, adjuntos, destinatarios, servidor, asunto, mensaje);
+		miHilo.enviarCorreo();
+		Clients.showNotification("Notificación enviada al correo del Gobernador/a");
+
+	}
 	private void copiarDatos() {
 		reserva.setCantidadDias(Integer.parseInt(txtNumNoches.getText()));
 		reserva.setEstado("A");

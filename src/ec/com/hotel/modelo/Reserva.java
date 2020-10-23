@@ -11,7 +11,8 @@ import java.util.List;
 @Table(name="reserva")
 @NamedQueries({
 	@NamedQuery(name="Reserva.buscarDisponibilidad", query="SELECT r FROM Reserva r "
-			+ "where r.habitacion.idHabitacion = :idHabitacion and (:fecha between r.fechaEntrada and r.fechaSalida) and r.estado = 'A'"),
+			+ "where r.habitacion.idHabitacion = :idHabitacion and (:fecha between r.fechaEntrada and r.fechaSalida) and r.estado = 'A' "
+			+ "and r.estadoReservaS = 'PENDIENTE'"),
 	@NamedQuery(name="Reserva.buscarPendientes", query="SELECT r FROM Reserva r "
 			+ "where r.estadoReservaS = 'PENDIENTE' and r.estado = 'A' order by r.idReserva desc"),
 	@NamedQuery(name="Reserva.buscarPendientesDiaActual", query="SELECT r FROM Reserva r "

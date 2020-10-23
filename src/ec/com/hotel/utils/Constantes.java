@@ -17,4 +17,10 @@ public class Constantes {
 	
 	
 	public static Integer ID_SERVICIO_HOTEL = 1;
+	
+	public static String TIPO_IMAGEN_PANORAMICA = "PA";
+	public static String TIPO_IMAGEN_NORMAL = "NL";
+	
+	public static String CORREO_ORIGEN = "residencialmontoya593@gmail.com";
+	public static String CONTRASENIA_ORIGEN = "residencial593";
 }

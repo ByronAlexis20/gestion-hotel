@@ -33,6 +33,7 @@ public class HabitacionLista {
 	HabitacionDAO habitacionDAO = new HabitacionDAO();
 	List<Habitacion> habitacionLista;
 	@Wire Listbox lstHabitaciones;
+	Habitacion habitacionSeleccionada;
 	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
@@ -52,14 +53,13 @@ public class HabitacionLista {
 		}
 		habitacionLista = habitacionDAO.getListaHabitaciones(textoBuscar);
 		lstHabitaciones.setModel(new ListModelList(habitacionLista));
+		habitacionSeleccionada = null;
 		if(habitacionLista.size() == 0) {
 			Clients.showNotification("No hay datos para mostrar.!!");
 		}
 	}
 	@Command
 	public void nuevo(){
-		//Map<String, Object> params = new HashMap<String, Object>();
-		//params.put("Categoria", new Categoria());
 		Window ventanaCargar = (Window) Executions.createComponents("/forms/administracion/habitaciones/habitacionEditar.zul", null, null);
 		ventanaCargar.doModal();
 	}
@@ -80,14 +80,11 @@ public class HabitacionLista {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	public void eliminar(@BindingParam("habitacion") Habitacion habitacionSeleccionada){
-
 		if (habitacionSeleccionada == null) {
 			Clients.showNotification("Seleccione una opción de la lista.");
 			return; 
 		}
-
 		Messagebox.show("Desea eliminar el registro seleccionado?", "Confirmación de Eliminación", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
-
 			@Override
 			public void onEvent(Event event) throws Exception {
 				if (event.getName().equals("onYes")) {
@@ -108,6 +105,19 @@ public class HabitacionLista {
 			}
 		});		
 	}
+	@Command
+	public void imagenes() {
+		if(habitacionSeleccionada == null) {
+			Clients.showNotification("Seleccione una opción de la lista.");
+			return;
+		}
+		// Actualiza la instancia antes de enviarla a editar.
+		habitacionDAO.getEntityManager().refresh(habitacionSeleccionada);		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("Habitacion", habitacionSeleccionada);
+		Window ventanaCargar = (Window) Executions.createComponents("/forms/administracion/habitaciones/imagenes.zul", null, params);
+		ventanaCargar.doModal();
+	}
 	public List<Habitacion> getHabitacionLista() {
 		return habitacionLista;
 	}
@@ -119,5 +129,11 @@ public class HabitacionLista {
 	}
 	public void setTextoBuscar(String textoBuscar) {
 		this.textoBuscar = textoBuscar;
+	}
+	public Habitacion getHabitacionSeleccionada() {
+		return habitacionSeleccionada;
+	}
+	public void setHabitacionSeleccionada(Habitacion habitacionSeleccionada) {
+		this.habitacionSeleccionada = habitacionSeleccionada;
 	}	
 }
