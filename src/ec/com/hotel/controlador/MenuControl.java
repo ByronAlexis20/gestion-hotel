@@ -9,6 +9,7 @@ import java.util.List;
 import javax.mail.MessagingException;
 
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -158,5 +159,10 @@ public class MenuControl {
 		Usuario usuario = usuarioDAO.getUsuario(SecurityUtil.getUser().getUsername());
 		String nombreUsuario = usuario.getPerfil().getPerfil();
 		return nombreUsuario;
+	}
+	
+	@Command
+	public void dashboard() {
+		areaContenido.setSrc("/contenido.zul");
 	}
 }

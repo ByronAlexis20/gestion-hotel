@@ -27,7 +27,7 @@
 			<vbox pack="center" vflex="1" >
 				<label
 					style="font: 120% sans-serif; font-weight: bold; color: white"
-					value="Hotel Montoya" />
+					value="Hotel Montoya" onClick=""/>
 			</vbox>
 		</hbox>
 
