@@ -1,24 +1,52 @@
-
-<?link rel="stylesheet" href="/css/estilos.css" ?>
-<?link rel="stylesheet" href="/css/bootstrap.css" ?>
-<?page title="Habitaciones" contentType="text/html;charset=UTF-8"?>
-<zk>
-	<div class="p-grid p-fluid dashboard">
-		<div class="p-col-12 p-lg-4">
-			<div class="card summary">
-				<label class="title">Users</label>
-				<label class="detail">Number of visitors</label>
-				<label class="count visitors">12</label>
-				
-			</div>
-		</div>
+<zk xmlns:n="native" xmlns:z="zul">
+	<style>
+		body { 
+			font-family: "Segoe UI", Tahoma, Geneva, Verdana,sans-serif; 
+		} 
+		* { 
+			box-sizing: 
+			border-box; 
+		} 
 		
-		<div class="p-col-12 p-lg-4">
-			<div class="card summary">
-				<label class="title">Users</label>
-				<label class="detail">Number of visitors</label>
-				<label class="count visitors">12</label>
-			</div>
+		.card { 
+			color: white; 
+			float: left; 
+			width: calc(25% - 20px); 
+			padding: 10px;
+			border-radius: 10px; 
+			margin: 10px; 
+			height: 100px; 
+		} 
+		.p {
+			font-size: 18px; 
+		} 
+		
+		.cardContainer:after { 
+			content: ""; 
+			display:table; 
+			clear: both; 
+		}
+		 
+		@media screen and (max-width: 300px) {
+			.card { width: 100%; } }
+	</style>
+	
+	<div class="cardContainer" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('ec.com.hotel.controlador.ContenidoController')">
+		<div class="card" style="background-color:#EC4343;">
+			<label sclass="p">Total de Habitaciones</label>
+			<label value="@bind(vm.numeroCamas)"/>
+		</div>
+		<div class="card" style="background-color:#46BF10;">
+			<label sclass="p">Habitaciones Libres</label>
+			<label value="@bind(vm.habitacionesLibres)"/>
+		</div>
+		<div class="card" style="background-color:#10BEBF;">
+			<label sclass="p">Habitaciones Ocupadas</label>
+			<label value="@bind(vm.habitacionesOcupadas)"/>
+		</div>
+		<div class="card" style="background-color:#F89C08;">
+			<label sclass="p">Habitaciones Reservadas para Hoy</label>
+			<label value="@bind(vm.habitacionesReservadas)"/>
 		</div>
 	</div>
 </zk>
