@@ -168,7 +168,7 @@ public class ConfirmarSalida {
 						ComprobanteDetalle detalleServicio = new ComprobanteDetalle();
 						detalleServicio.setCantidad(Integer.valueOf(txtDias.getText()));
 						detalleServicio.setComprobante(comprobante);
-						detalleServicio.setDescripcion("POR HOSPEDAJE EN EL HOTEL");
+						detalleServicio.setDescripcion("POR HOSPEDAJE EN EL HOTEL EN HABITACIÓN " + reserva.getHabitacion().getNumero());
 						detalleServicio.setEstado("A");
 						detalleServicio.setIdDetalleComprobante(null);
 						detalleServicio.setTotal(Float.valueOf(txtTotalHospedaje.getText()));

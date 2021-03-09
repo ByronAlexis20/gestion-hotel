@@ -11,7 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Comprobante.findAll", query="SELECT c FROM Comprobante c")
+@NamedQuery(name="Comprobante.buscarPorFecha", query="SELECT c FROM Comprobante c where c.fecha = :fecha")
 public class Comprobante implements Serializable {
 	private static final long serialVersionUID = 1L;
 
