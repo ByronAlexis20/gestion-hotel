@@ -1,0 +1,6 @@
+<?page title="Tiempo agotado" contentType="text/html;charset=UTF-8"?>
+<?script src="/webjars/bootstrap/4.0.0/js/bootstrap.min.js" ?>
+<?link rel="stylesheet" href="/webjars/bootstrap/4.0.0/css/bootstrap.min.css" ?>
+<zk>
+	<label value="Tiempo de espera Finalizado"></label>
+</zk>

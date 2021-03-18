@@ -1,0 +1,48 @@
+<?page title="Habitaciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winAgregarPanoramicas" width="37%" vflex="1"
+		apply="org.zkoss.bind.BindComposer" border="none" position="center"
+		mode="overlapped" class="modal-title"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.administracion.AgregarPanoramica')">
+		<caption label="Ingrese datos Imágen Panorámica" height="25px" class="modal-title-letters"/>
+		<vlayout>
+			<grid hflex="1">
+				<columns>
+					<column align="right" hflex="min" />
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<cell>
+							<label value="Nombre Imagen:" class="label-form"></label>
+						</cell>
+						<cell>
+							<textbox class="form-control form-control-sm" placeholder="Nombre imágen panóramica"
+								id="txtNombre"  maxlength="8"/>
+						</cell>
+					</row>
+					<row>
+						<cell>
+							<label value="Fuente Imagen:" class="label-form"></label>
+						</cell>
+						<cell>
+							<textbox class="form-control form-control-sm" placeholder="Fuente de la vista panorámica"
+								id="txtFuente"  multiline="true" height="100px"/>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>

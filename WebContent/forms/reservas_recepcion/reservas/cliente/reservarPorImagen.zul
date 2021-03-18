@@ -1,0 +1,21 @@
+<?page title="Imagenes Panorámica" contentType="text/html;charset=UTF-8"?>
+
+<zk>
+	<window border="none" hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.recepcion.ReservarPorImagen')">
+		<vlayout vflex="1">
+			<label value="Habitaciones" style="font-size:20px;font-weight: bold;" />
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<hbox hflex="1">
+				<datebox id="dtpFecha" />
+				<button label="Buscar Habitaciones Disponibles" zclass="but btn-form btn-sm"
+							iconSclass="z-icon-search" onClick="@command('cargarImagenes')"/>
+			</hbox>
+			<div hflex="1" vflex="1">
+				<tabbox hflex="1" vflex="1" id="tbHabitaciones">
+				
+				</tabbox>
+			</div>
+		</vlayout>
+	</window>
+</zk>

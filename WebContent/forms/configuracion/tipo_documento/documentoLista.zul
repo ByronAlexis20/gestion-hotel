@@ -1,0 +1,63 @@
+<?page title="Lista de niveles" contentType="text/html;charset=UTF-8"?>
+
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.configuracion.DocumentoLista')"
+		hflex="1" vflex="1">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<image src="/imagenes/ic_tipo_documento_nego.png"
+					width="30px" />
+				<label value="Registro de Tipos de Documentos"
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<div hflex="1">
+				<hlayout hflex="1">
+					<div hflex="1">
+						<button label="Registrar Nuevo Tipo de Documento" zclass="but btn-form btn-sm"
+							iconSclass="z-icon-plus" onClick="@command('nuevo')" />
+					</div>
+
+					<hbox align="center">
+						<textbox value="@bind(vm.textoBuscar)" onOK="@command('buscar')"
+							width="300px" class="form-control tamanio-textbox"
+							placeholder="Búsqueda por nombre de tipo de documento" />
+						<button iconSclass="z-icon-search" class="but btn-form btn-sm"
+							onClick="@command('buscar')" />
+					</hbox>
+				</hlayout>
+			</div>
+			<hlayout></hlayout>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstDocumentos" model="@load(vm.listaDocumentos)" autopaging="true"
+					mold="paging" hflex="1" vflex="1">
+					<listhead>
+						<listheader label="Categoría" class="lb-listheader"/>
+						<listheader label="Cantidad Digitos" width="20%" class="lb-listheader"/>
+						<listheader label="Estado" width="20%" class="lb-listheader"/>
+						<listheader label="Acción" width="20%" class="lb-listheader"
+							align="center" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.tipoDocumento)" class="lb-listcell"/>
+							<listcell label="@load(each.digitos)" class="lb-listcell"/>
+							<listcell label="@load(each.estado)" class="lb-listcell"/>
+							<listcell>
+								<div align="center">
+									<button label="Editar"
+										iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
+										onClick="@command('editar',documento=each)" />
+									<button label="Eliminar"
+										iconSclass="z-icon-trash-o" zclass="btn-eliminar btn-size"
+										onClick="@command('eliminar',documento=each)" />
+								</div>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

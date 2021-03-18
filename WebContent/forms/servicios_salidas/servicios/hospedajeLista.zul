@@ -1,0 +1,61 @@
+<?page title="Lista de reservaciones" contentType="text/html;charset=UTF-8"?>
+
+<zk>
+	<window border="none" hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.salidas.HospedajeLista')">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<image src="/imagenes/ic_servicios_negro.png"
+					width="30px" />
+				<label value="Servicios Adicionales" 
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<div hflex="1">
+				<hlayout hflex="1">
+					<div hflex="1">
+						<hbox align="center">
+							<textbox width="300px" value="@bind(vm.textoBuscar)"
+								class="form-control tamanio-textbox" onOK="@command('buscar')"
+								placeholder="Búsqueda por cliente" />
+							<button iconSclass="z-icon-search" class="but btn-form btn-sm" onClick="@command('buscar')"/>
+						</hbox>
+					</div>
+				</hlayout>
+			</div>
+			<hlayout></hlayout>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstReserva" model="@load(vm.listaReserva)" autopaging="true"
+					mold="paging" hflex="1" vflex="1">
+					<listhead>
+						<listheader label="No Documento" width="10%" class="lb-listheader"/>
+						<listheader label="Nombres Cliente" class="lb-listheader"/>
+						<listheader label="Apellidos Cliente" class="lb-listheader"/>
+						<listheader label="F. ingreso" width="10%" class="lb-listheader"/>
+						<listheader label="No. Hab." width="8%" class="lb-listheader"/>
+						<listheader label="Categoria" class="lb-listheader"/>
+						<listheader label="Estado" width="10%" class="lb-listheader"/>
+						<listheader label="Accion" width="8%" class="lb-listheader"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.cliente.numeroDocumento)" class="lb-listcell"/>
+							<listcell label="@load(each.cliente.nombres)" class="lb-listcell"/>
+							<listcell label="@load(each.cliente.apellidos)" class="lb-listcell"/>
+							<listcell label="@load(each.fechaEntrada) @converter('formatedDate',format='dd/MM/yyyy')" class="lb-listcell"/>
+							<listcell label="@load(each.habitacion.numero)" class="lb-listcell"/>
+							<listcell label="@load(each.habitacion.categoria.categoria)" class="lb-listcell"/>
+							<listcell label="@load(each.habitacion.estadoReserva)" class="lb-listcell"/>
+							<listcell>
+								<div align="center" hflex="1">
+									<button iconSclass="z-icon-sign-in" onClick="@command('registrarServicio',reserva=each)" zclass="btn-editar btn-size"/>
+								</div>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

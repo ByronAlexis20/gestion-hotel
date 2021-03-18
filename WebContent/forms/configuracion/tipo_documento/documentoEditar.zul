@@ -1,0 +1,60 @@
+<?page title="Tipos de documentos" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winDocumentoEditar" width="455px" vflex="1"
+		apply="org.zkoss.bind.BindComposer" border="none" position="center"
+		mode="overlapped" class="modal-title"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.configuracion.DocumentoEditar')">
+		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
+		<vlayout>
+			<grid>
+				<columns>
+					<column align="right" hflex="min" />
+					<column align="left" hflex="1" />
+				</columns>
+				<rows>
+					<row>
+						<label value="Descripción: " class="label-form"/>
+						<textbox id="descripcion"
+							value="@bind(vm.tipoDocumento.tipoDocumento)" hflex="1" height="100px"
+							multiline="true" maxlength="250" />
+					</row>
+					<row>
+						<label value="Cant. Dígitos: " class="label-form"/>
+						<textbox id="digitos" value="@bind(vm.tipoDocumento.digitos)" hflex="1" xmlns:w="client" maxlength="8">
+							<attribute w:name="doKeyDown_"><![CDATA[
+								function (evt) {
+									var keyCode = event.keyCode;
+									if( keyCode == 8 // back space
+										|| keyCode == 13 // enter
+										|| keyCode == 16 // enter
+										|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+										|| keyCode == 46) { // Delete
+										this.$doKeyDown_(evt);
+									} else if ( !evt.shiftKey &&  // only do without shift key
+										(keyCode >= 48 && keyCode <= 57)
+										|| (keyCode >= 96 && keyCode <= 105)) {// number range
+										this.$doKeyDown_(evt);
+									} else {
+										evt.stop();
+										return;
+									}
+								}
+							]]></attribute>
+						</textbox>
+					</row>
+				</rows>
+			</grid>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>

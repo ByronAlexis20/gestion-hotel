@@ -1,0 +1,58 @@
+<zk>
+	<style>
+		.btn-borde {background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;}
+
+		.btn-borde:hover, .btn-borde:active, .btn-borde:focus {background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;}
+	</style>
+	<hbox vflex="1" hflex="1" style="background-color: transparent;"
+		pack="start">
+		<separator orient="horizontal" width="10px" />
+
+		<vbox pack="center" vflex="1">
+			<image src="/imagenes/icono_hotel.png" height="30px" />
+		</vbox>
+		<hbox pack="start" align="start" hflex="1" vflex="1">
+			<vbox pack="center" vflex="1" >
+				<label
+					style="font: 120% sans-serif; font-weight: bold; color: white"
+					value="Hotel Montoya" onClick=""/>
+			</vbox>
+		</hbox>
+
+		<hbox vflex="1" hflex="1" pack="end">
+			<vbox vflex="1" pack="center">
+				<image src="/imagenes/logo_usuario.png" height="30px" style="border-radius:160px;width:30px;height:30px;"/>
+			</vbox>
+			<separator orient="horizontal" width="1px" />
+			<vbox vflex="1" pack="center">
+				<label value="@load(vm.nombreUsuario)"
+					style="font: 100% sans-serif;color:white" />
+			</vbox>
+			<separator orient="horizontal" width="10px" />
+			
+			<vbox vflex="1" pack="center" style="margin-right:10px;">
+				<h:form id="f" name="f"
+					action="j_spring_security_logout" method="POST" xmlns:h="native">
+					<html>	
+						<input type="hidden"
+							name="${_csrf.parameterName}" value="${_csrf.token}" />
+					</html>
+					<button type="submit" image="/imagenes/salir.png" width="50px"
+						 sclass="btn-borde" tooltip="Salir del sistema"/>
+				</h:form>
+			</vbox>
+		</hbox>
+	</hbox>
+</zk>

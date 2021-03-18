@@ -1,0 +1,50 @@
+<?page title="Habitaciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winAgregarImagen" width="37%" vflex="1"
+		apply="org.zkoss.bind.BindComposer" border="none" position="center"
+		mode="overlapped" class="modal-title"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.administracion.AgregarImagen')">
+		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
+		<vlayout>
+			<grid style="background-color: transparent;border:none;">
+				<columns style="background-color: transparent;">
+					<column align="left" hflex="min"/>
+					<column align="left" />
+				</columns>
+				<rows>
+					<row align="center">
+						<cell colspan="2" align="center">
+							<vbox  pack="center" hflex="1">
+									<div align="center">
+										<label value="Imagen"/>
+									</div>
+									<div align="center">
+										<image id="imgFoto" width="130px" height="130px"
+										content="@load(vm.imagenHabitacion)"
+										style="border:1px #cccccc solid; " />
+									</div>
+									<div align="center">
+										<button id="btnUpload" label="Cargar..."
+											upload="true,accept=.jpg" onUpload="@command('subir', upEvent=event)"
+											iconSclass="z-icon-upload" />
+									</div>
+								
+							</vbox>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>

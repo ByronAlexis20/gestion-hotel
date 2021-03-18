@@ -1,0 +1,108 @@
+<?page title="Editar Reservaciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		vflex="1" width="50%" id="winReservaEditar" class="modal-title"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.recepcion.ReservarHabitacion')">
+		<caption label="Datos de la reserva" height="25px" class="modal-title-letters"/>
+		
+		<vlayout hflex="1">
+			<div style="margin-top:10px">
+				<label value="Datos de la Habitación"
+					style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<div hflex="1">
+				<label value="Número de Habitación: "/>
+				<textbox id="txtNumeroHabitacion" width="100px" readonly="true" placeholder="Número de Habitación"/>
+				<separator orient="vertical" width="10px"/>
+				<label value="Categoría: "/>
+				<textbox id="txtCategoria" placeholder="categoria" hflex="1"  readonly="true"/>
+			</div>
+			<div hflex="1">
+				<label value="Precio por noche: "/>
+				<textbox id="txtPrecio" placeholder="precio" width="120px" readonly="true"/>
+				<separator orient="vertical" width="10px"/>
+				<label value="Nivel/Piso: "/>
+				<textbox id="txtNivel" placeholder="Nivel/Piso" value="100" hflex="1" readonly="true"/>
+			</div>
+			<div hflex="1">
+				<label value="Detalles: "/>
+			</div>
+			<div hflex="1">
+				<textbox id="txtDetalles" multiline="true" hflex="1" height="30px" placeholder="detalles" readonly="true"/>
+			</div>
+			
+			<hbox hflex="1" >
+				<vbox hflex="1" vflex="1">
+					<div style="margin-top:10px">
+						<label value="Datos del Huésped" style="font-size:15px;font-weight: bold;" />
+					</div>
+					<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+					<label value="Tipo de Documento"/>
+					<combobox id="cboTipoDocumento" hflex="1" model="@load(vm.tipoDocumentos)" readonly="true" disabled="true"
+						selectedItem="@bind(vm.documentoSeleccionado)">
+						<template name="model">
+							<comboitem label="${each.tipoDocumento}" />
+						</template>
+					</combobox>
+					<label value="No. Documento"/>
+					<div hflex="1">
+						<textbox id="txtNumeroDocumento" placeholder="Número de documento" readonly="true"/>
+					</div>
+					<hbox hflex="1">
+						<vbox hflex="1">
+							<label value="Nombres"/>
+							<textbox id="txtNombres" hflex="1" placeholder="Nombres" readonly="true"/>
+						</vbox>
+						<vbox hflex="1">
+							<label value="Apellidos"/>
+							<textbox id="txtApellidos" hflex="1" placeholder="Apellidos" readonly="true"/>
+						</vbox>
+					</hbox>
+					<label value="Correo Electrónico"/>
+					<textbox id="txtCorreo" placeholder="Dirección de correo electronico" hflex="1"/>
+				</vbox>
+				
+				<separator orient="vertical" width="10px"/>
+				
+				<vbox hflex="1" >
+					<div style="margin-top:10px">
+						<label value="Datos del Alojamiento" style="font-size:15px;font-weight: bold;" />
+					</div>
+					<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+					<hbox hflex="1">
+						<vbox hflex="1">
+							<label value="Fecha de Inicio"/>
+							<datebox id="dtpFechaInicio" hflex="1"/>
+						</vbox>
+						<vbox hflex="1">
+							<label value="Fecha de Salida"/>
+							<datebox id="dtpFechaSalida" hflex="1" onChange="@command('seleccionaFechaFin')"/>
+						</vbox>
+					</hbox>
+					<div hflex="1">
+						<label value="No. Noches"/>
+						<textbox id="txtNumNoches" readonly="true" placeholder="Cálculo de número de noches" hflex="1"/>
+					</div>
+					<hbox hflex="1">
+						<vbox hflex="1">
+							<label value="Precio:"/>
+							<textbox id="txtPrecioTotal" hflex="1" readonly="true"/>
+						</vbox>
+					</hbox>
+				</vbox>
+			</hbox>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>

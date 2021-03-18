@@ -1,0 +1,178 @@
+<zk xmlns:n="native" xmlns:z="zul">
+	<style>
+		body { 
+			font-family: "Segoe UI", Tahoma, Geneva, Verdana,sans-serif; 
+		} 
+		* { 
+			box-sizing: 
+			border-box; 
+		} 
+		
+		.card { 
+			color: white; 
+			float: left; 
+			width: calc(20% - 20px); 
+			border: #000000 0px outset; 
+			margin: 10px; 
+			height: 90px; 
+			box-shadow: 2px 2px 10px #592A08; 
+		} 
+		.p {
+			font-size: 14px;
+		} 
+		.p1 {
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.cardContainer:after { 
+			content: ""; 
+			display:table; 
+			clear: both; 
+		}
+		 
+		@media screen and (max-width: 300px) {
+			.card { width: 100%; } }
+		
+		.listheader-reserva *{
+			background:#659DC8;
+			color: white !important;
+		}
+		
+		.listheader-recaudacion *{
+			background:#128700;
+			color: white !important;
+		}
+		
+	</style>
+	<vlayout hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('ec.com.hotel.controlador.ContenidoController')">
+		<div class="cardContainer" >
+			<div class="card" style="background-color:#FB2D2D;">
+				<hlayout hflex="1" vflex="1">
+					<vlayout style="background-color:#FD1313;text-align:center; width: 60px;" vflex="1">
+						<vbox hflex="1" vflex="1" align="center" pack="center">
+							<image src="imagenes/ic_habitacion_blanco.png" width="42px"/>
+						</vbox>
+					</vlayout>
+					<vlayout vflex="1" hflex="1" style="padding: 10px;">
+						<label sclass="p">Total de</label>
+						<label sclass="p">Habitaciones</label>
+						<label sclass="p1" value="@bind(vm.numeroCamas)"/>
+					</vlayout>
+				</hlayout>
+			</div>
+			<div class="card" style="background-color:#5FE83E;">
+				<hlayout hflex="1" vflex="1">
+					<vlayout style="background-color:#2BCC04;text-align:center; width: 60px;" vflex="1">
+						<vbox hflex="1" vflex="1" align="center" pack="center">
+							<image src="imagenes/ic_habitacion_blanco.png" width="42px"/>
+						</vbox>
+					</vlayout>
+					<vlayout vflex="1" hflex="1" style="padding: 10px;">
+						<label sclass="p">Habitaciones</label>
+						<label sclass="p">Libres</label>
+						<label sclass="p1" value="@bind(vm.habitacionesLibres)"/>
+					</vlayout>
+				</hlayout>
+			</div>
+			<div class="card" style="background-color:#28ECF1;">
+				<hlayout hflex="1" vflex="1">
+					<vlayout style="background-color:#07CFD5;text-align:center; width: 60px;" vflex="1">
+						<vbox hflex="1" vflex="1" align="center" pack="center">
+							<image src="imagenes/ic_habitacion_blanco.png" width="42px"/>
+						</vbox>
+					</vlayout>
+					<vlayout vflex="1" hflex="1" style="padding: 10px;">
+						<label sclass="p">Habitaciones</label>
+						<label sclass="p">Ocupadas</label>
+						<label sclass="p1" value="@bind(vm.habitacionesOcupadas)"/>
+					</vlayout>
+				</hlayout>
+			</div>
+			<div class="card" style="background-color:#FABF57;">
+				<hlayout hflex="1" vflex="1">
+					<vlayout style="background-color:#F1A828;text-align:center; width: 60px;" vflex="1">
+						<vbox hflex="1" vflex="1" align="center" pack="center">
+							<image src="imagenes/ic_habitacion_blanco.png" width="42px"/>
+						</vbox>
+					</vlayout>
+					<vlayout vflex="1" hflex="1" style="padding: 10px;">
+						<label sclass="p">Habitaciones</label>
+						<label sclass="p">Reservadas para Hoy</label>
+						<label sclass="p1" value="@bind(vm.habitacionesReservadas)"/>
+					</vlayout>
+				</hlayout>
+			</div>
+			<div class="card" style="background-color:#585858;">
+				<hlayout hflex="1" vflex="1">
+					<vlayout style="background-color:#1C1C1C;text-align:center; width: 60px;" vflex="1">
+						<vbox hflex="1" vflex="1" align="center" pack="center">
+							<image src="imagenes/ic_dolar.png" width="42px"/>
+						</vbox>
+					</vlayout>
+					<vlayout vflex="1" hflex="1" style="padding: 10px;">
+						<label sclass="p">Recaudación</label>
+						<label sclass="p">Del Día</label>
+						<label sclass="p1" value="@bind(vm.totalRecaudado)"/>
+					</vlayout>
+				</hlayout>
+			</div>
+		</div>
+		<hlayout hflex="1" vflex="1">
+			<vlayout hflex="1" vflex="1">
+				<label value="Reservas del Día" style="font-size:20px;font-weight: bold;" />
+				<listbox id="lstReserva" model="@load(vm.listaReserva)" autopaging="true"
+					mold="paging" hflex="1" vflex="1">
+					<listhead>
+						<listheader label="No Doc." width="12%" class="listheader-reserva"/>
+						<listheader label="Cliente" class="listheader-reserva"/>
+						<listheader label="F. Reg" width="11%" class="listheader-reserva"/>
+						<listheader label="No. Hab." width="12%" class="listheader-reserva"/>
+						<listheader label="Estado" class="listheader-reserva" width="10%"/>
+						<listheader label="Accion" width="10%" class="listheader-reserva"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.cliente.numeroDocumento)" sclass="lb-listcell"/>
+							<listcell label="@load(each.cliente.nombres) @load(each.cliente.apellidos)" class="lb-listcell"/>
+							<listcell label="@load(each.fechaRegistro) @converter('formatedDate',format='dd/MM/yyyy')" class="lb-listcell"/>
+							<listcell label="@load(each.habitacion.numero)" class="lb-listcell"/>
+							<listcell label="@load(each.estadoReservaS)" class="lb-listcell"/>
+							<listcell>
+								<div align="center" hflex="1">
+										<!-- <button iconSclass="z-icon-pencil" onClick="@command('editar',reserva=each)"/>  -->
+									 <button iconSclass="z-icon-trash-o" onClick="@command('eliminar',reserva=each)" zclass="btn-eliminar btn-size"/> 
+								</div>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</vlayout>
+			<vlayout hflex="1" vflex="1">
+				<label value="Recaudaciones" style="font-size:20px;font-weight: bold;" />
+				<listbox id="lstRes" model="@load(vm.listaRecaudacion)" autopaging="true"
+					mold="paging" hflex="1" height="200px">
+					<listhead>
+						<listheader label="No." width="10%" class="listheader-recaudacion"/>
+						<listheader label="Fecha" width="14%" class="listheader-recaudacion"/>
+						<listheader label="Detalle" class="listheader-recaudacion"/>
+						<listheader label="Valor" width="10%" class="listheader-recaudacion"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.codigoFactura)" class="lb-listcell"/>
+							<listcell label="@load(each.fecha) @converter('formatedDate',format='dd/MM/yyyy')" class="lb-listcell"/>
+							<listcell label="@load(each.detalle)" class="lb-listcell"/>
+							<listcell label="@load(each.total)" class="lb-listcell"/>
+						</listitem>
+					</template>
+				</listbox>
+				<hbox  align="end" pack="end" hflex="1">
+					<div style="box-shadow: 2px 2px 10px #592A08;">
+						<label sclass="p">Total Recaudado: $ </label>
+						<label sclass="p" value="@bind(vm.totalRecaudado)"/>
+					</div>
+				</hbox>
+			</vlayout>
+		</hlayout>
+	</vlayout>
+</zk>

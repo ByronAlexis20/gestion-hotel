@@ -1,0 +1,63 @@
+<?page title="Permisos" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.seguridad.Permisos')"
+		hflex="1" vflex="1">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<label value="Permisos por Perfiles"
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<vlayout hflex="1" vflex="1">
+				<groupbox>
+					<hlayout>
+						<div>
+							Seleccionar perfil
+							<combobox id="cboPerfil" width="300px" readonly="true"
+								model="@load(vm.perfiles)" onChange="@command('cambioPerfil')"
+								selectedItem="@bind(vm.perfilSeleccionado)">
+								<template name="model">
+									<comboitem label="${each.perfil}" />
+								</template>
+							</combobox>
+						</div>
+						<space />
+					</hlayout>
+				</groupbox>
+				<hbox hflex="1" vflex="1" align="center">
+					<listbox id="lstPermisosTodos"
+						autopaging="true" mold="paging"
+						hflex="1" vflex="1">
+						<listhead>
+							<listheader label="Opciones Disponible" class="lb-listheader"/>
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="${each.presentacion}" class="lb-listcell"/>
+							</listitem>
+						</template>
+					</listbox>
+					<vbox>
+						<button id="btnAgregar" iconSclass="z-icon-angle-right"
+							sclass="btn btn-outline-success" onClick="@command('agregar')"/>
+						<button id="btnQuitar" iconSclass="z-icon-angle-left"
+							sclass="btn btn-outline-success" onClick="@command('quitar')" />
+					</vbox>
+					<listbox id="lstPermisoPerfil"
+						autopaging="true" mold="paging"
+						hflex="1" vflex="1">
+						<listhead>
+							<listheader label="Opciones Disponible" class="lb-listheader"/>
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="${each.menu.presentacion}" class="lb-listcell"/>
+							</listitem>
+						</template>
+					</listbox>
+				</hbox>
+			</vlayout>
+		</vlayout>
+	</window>
+</zk>

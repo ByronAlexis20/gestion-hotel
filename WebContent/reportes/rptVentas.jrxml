@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.15.0.final using JasperReports Library version 6.15.0-dd49bfb94918336b8321d5507193f0169ead4e95  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptVentas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c4f012c-bd4b-48bc-a088-103c8d77dabf">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Ventas"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="304"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="684"/>
+	<parameter name="FECHA_INICIO" class="java.util.Date"/>
+	<parameter name="FECHA_FIN" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT cl.cedula_cliente,cl.nombres_cliente,cl.apellidos_cliente, 
+dt.cantidad_producto,pr.nombre_producto, dt.precio_producto,
+(dt.cantidad_producto * dt.precio_producto) as subtotal, ca.nombre_categoria
+from cliente cl, compra co, detallecompra dt, producto pr, categoria ca 
+where cl.id_cliente = co.id_cliente and co.id_compra = dt.id_compra and 
+dt.id_producto = pr.id_producto and pr.id_categoria_producto = ca.id_categoria
+and co.fecha_compra between  $P{FECHA_INICIO} and  $P{FECHA_FIN} ]]>
+	</queryString>
+	<field name="cedula_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cedula_cliente"/>
+		<property name="com.jaspersoft.studio.field.label" value="cedula_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombres_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombres_cliente"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombres_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellidos_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="apellidos_cliente"/>
+		<property name="com.jaspersoft.studio.field.label" value="apellidos_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad_producto" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cantidad_producto"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantidad_producto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="detallecompra"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_producto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_producto"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_producto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="producto"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio_producto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="precio_producto"/>
+		<property name="com.jaspersoft.studio.field.label" value="precio_producto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="detallecompra"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="subtotal"/>
+		<property name="com.jaspersoft.studio.field.label" value="subtotal"/>
+	</field>
+	<field name="nombre_categoria" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_categoria"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_categoria"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categoria"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

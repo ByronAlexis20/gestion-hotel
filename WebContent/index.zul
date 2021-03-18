@@ -1,0 +1,85 @@
+<?page title="Menú Principal - Hotel" contentType="text/html;charset=UTF-8"?>
+<?link rel="stylesheet" href="/css/estilos.css" ?>
+<?link rel="stylesheet" href="/css/bootstrap.css" ?>
+<?link rel="stylesheet" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css"?>
+<?link rel="stylesheet" href="resources/css/zk-admin-bootstrap-theme.css"?>
+<?link rel="stylesheet" href="resources/css/layout.css" ?>
+<?link rel="stylesheet" href="resources/css/zk-bootstrap.css" ?>
+
+<zk xmlns:n="native">
+	<style>
+		.btn-borde {
+			background: none;
+			color: inherit;
+			border: none;
+        	padding: 0;
+        	font: inherit;
+        	cursor: pointer;
+        	outline: inherit;
+        }
+
+		.btn-borde:hover, .btn-borde:active, .btn-borde:focus {
+			background: none;
+        	color: inherit;
+        	border: none;
+        	padding: 0;
+        	font: inherit;
+        	cursor: pointer;
+        	outline: inherit;
+        }
+        
+        .hotel-letter:hover, .hotel-letter:active, .hotel-letter:focus {
+        	cursor: pointer;
+        }
+	</style>
+	
+	<borderlayout hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ec.com.hotel.controlador.MenuControl')">
+		<north height="43px" border="none" style="background-color: #3c8dbc" hflex="1" flex="false">
+			<hbox vflex="1" hflex="1" style="background-color: transparent;" pack="start">
+				<separator orient="horizontal" width="10px" />
+				<vbox pack="center" vflex="1">
+					<image src="/imagenes/icono_hotel.png" height="30px" />
+				</vbox>
+				<hbox pack="start" align="start" hflex="1" vflex="1">
+					<vbox pack="center" vflex="1" sclass="hotel-letter">
+						<label style="font: 120% sans-serif; font-weight: bold; color: white; " value="Hotel Montoya" onClick="@command('dashboard')"/>
+					</vbox>
+				</hbox>
+				<hbox vflex="1" hflex="1" pack="end">
+					<vbox vflex="1" pack="center">
+						<image src="/imagenes/logo_usuario.png" height="30px" style="border-radius:160px;width:30px;height:30px;"/>
+					</vbox>
+					<separator orient="horizontal" width="1px" />
+					<vbox vflex="1" pack="center">
+						<label value="@load(vm.nombreUsuario)" style="font: 100% sans-serif;color:white" />
+					</vbox>
+					<separator orient="horizontal" width="10px" />
+					
+					<vbox vflex="1" pack="center" style="margin-right:10px;">
+						<h:form id="f" name="f" action="j_spring_security_logout" method="POST" xmlns:h="native">
+							<html>	
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							</html>
+							<button type="submit" image="/imagenes/salir.png" width="50px" sclass="btn-borde" tooltip="Salir del sistema"/>
+						</h:form>
+					</vbox>
+				</hbox>
+			</hbox>
+		</north>
+		
+		<west  width="230px" flex="true" maxsize="250" class="menu" splittable="true" collapsible="true">
+	    	<div vflex="1" hflex="1">
+	      		<tree  id="menu" vflex="1"  hflex="1"  style="padding-top:20px;"/>
+	    	</div>
+	    </west>
+	    
+		<center id="mainContent" autoscroll="true" style="background-color: transparent;">
+			<include id="areaContenido" hflex="1" vflex="1"/>
+		</center>
+		
+		<south height="25px" border="none" style="background-color: transparent;">
+			<include src="/footer.zul" vflex="1" hflex="1" />
+		</south>
+	</borderlayout>
+	
+</zk>

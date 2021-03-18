@@ -1,0 +1,57 @@
+<?page title="Lista de reservaciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window border="none" hflex="1" vflex="1" apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.recepcion.HabitacionDisponible')">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<image src="/imagenes/ic_ingreso_negro.png"
+					width="30px" />
+				<label id="lblTitulo" 
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<div hflex="1">
+				<hlayout hflex="1">
+					<div hflex="1">
+						<hbox align="center">
+							<textbox width="300px" value="@bind(vm.textoBuscar)"
+								class="form-control tamanio-textbox" onOK="@command('buscar')"
+								placeholder="Búsqueda por número de habitación" />
+							<button iconSclass="z-icon-search" class="but btn-form btn-sm" onClick="@command('buscar')"/>
+						</hbox>
+					</div>
+				</hlayout>
+			</div>
+			<hlayout></hlayout>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstHabitaciones" model="@load(vm.listaHabitacionesDisponibles)" autopaging="true"
+					mold="paging" vflex="1">
+					<listhead>
+						<listheader label="No Hab." width="8%" align="center" class="lb-listheader"/>
+						<listheader label="Categoria" align="center" class="lb-listheader"/>
+						<listheader label="Nivel" align="center" width="15%" class="lb-listheader"/>
+						<listheader label="# Camas" width="10%" align="center" class="lb-listheader"/>
+						<listheader label="Estado" width="10%" align="center" class="lb-listheader"/>
+						<listheader label="Acción" width="16%" align="center" class="lb-listheader"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.numero)" class="lb-listcell"/>
+							<listcell label="@load(each.categoria.categoria)" class="lb-listcell"/>
+							<listcell label="@load(each.nivel.nivel)" class="lb-listcell"/>
+							<listcell label="@load(each.numeroCamas)" class="lb-listcell"/>
+							<listcell label="@load(each.estadoReserva)" class="lb-listcell"/>
+							<listcell>
+								<div align="center">
+									<button label="@load(each.estadoReserva eq 'LIMPIEZA' ? 'Liberar' : each.estadoReserva eq 'OCUPADO' ? 'Ocupado' : 'Reservar')" iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
+									 	onClick="@command('registrarIngreso',habitacion=each)" />
+								</div>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

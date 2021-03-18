@@ -1,0 +1,27 @@
+<?page title="Habitaciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winImagenes" width="70%" height="70%" vflex="1" border="none" position="center"
+		mode="overlapped" class="modal-title"
+		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ec.com.hotel.controlador.administracion.Imagenes')">
+		<caption label="Imagenes" height="25px" class="modal-title-letters"/>
+		
+		<vlayout vflex="1" hflex="1">
+			<div hflex="1" align="center">
+				<button label="Agregar Imagen" zclass="but btn-form btn-sm"
+						iconSclass="z-icon-plus" onClick="@command('agregarImagen')" />
+				<button label="Panorámicas" zclass="but btn-form btn-sm"
+						onClick="@command('verPanoramicas')" />
+				<button label="Salir" zclass="but btn-form btn-sm"
+						onClick="@command('salir')" />
+			</div>
+			
+			
+			
+			
+			
+			<div style="overflow: scroll;" vflex="1" align="center" id="dvImagenes">
+				
+			</div>
+		</vlayout>
+	</window>
+</zk>

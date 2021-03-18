@@ -1,0 +1,145 @@
+<?page title="Usuarios" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winUsuarioEditar" width="37%" vflex="1"
+		apply="org.zkoss.bind.BindComposer" border="none" position="center"
+		mode="overlapped" class="modal-title"
+		viewModel="@id('vm') @init('ec.com.hotel.controlador.seguridad.UsuarioEditar')">
+		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
+		<vlayout>
+			<grid hflex="1">
+				<columns>
+					<column align="right" hflex="min" />
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<cell class="label-form">Tipo de documento:</cell>
+						<cell>
+							<combobox id="cboTipoDocumento" hflex="1"
+								model="@load(vm.tiposDocumentos)"
+								readonly="true" selectedItem="@bind(vm.documentoSeleccionado)">
+								<template name="model">
+									<comboitem label="${each.tipoDocumento}" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">No. Documento:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm"
+								id="txtNoDocumento" hflex="1" value="@bind(vm.usuario.documento)" xmlns:w="client">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
+										}
+									}
+								]]></attribute>
+							</textbox>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Perfil:</cell>
+						<cell>
+							<combobox id="cboPerfil" hflex="1"
+								model="@load(vm.perfiles)" readonly="true"
+								selectedItem="@bind(vm.perfilSeleccionado)">
+								<template name="model">
+									<comboitem label="${each.perfil}" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Nombres:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" id="txtNombres" hflex="1" value="@bind(vm.usuario.nombre)"/>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Apellidos:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" id="txtApellidos" hflex="1" value="@bind(vm.usuario.apellido)"/>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Dirección:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" id="txtDireccion" hflex="1" value="@bind(vm.usuario.direccion)"/>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Teléfono:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm"
+								id="txtTelefono" hflex="1" value="@bind(vm.usuario.telefono)" xmlns:w="client" maxlength="10">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
+										}
+									}
+								]]></attribute>
+							</textbox>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Usuario:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" id="txtUsuario" hflex="1" value="@bind(vm.usuario.usuario)"/>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Clave:</cell>
+						<cell>
+							<textbox hflex="1" class="form-control form-control-sm" type="password"
+								id="txtClave" value="@bind(vm.usuario.clave)"/>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>
