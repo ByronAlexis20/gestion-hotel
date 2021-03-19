@@ -41,6 +41,7 @@ public class UsuarioEditar {
 	@Wire private Textbox txtUsuario;
 	@Wire private Textbox txtDireccion;
 	@Wire private Textbox txtClave;
+	@Wire private Textbox txtCorreo;
 	
 	TipoDocumentoDAO tipoDocumentoDAO = new TipoDocumentoDAO();
 	PerfilDAO perfilDAO = new PerfilDAO();
@@ -123,6 +124,7 @@ public class UsuarioEditar {
 			clienteGrabar.setNombres(usuarioRecuperado.getNombre());
 			clienteGrabar.setNumeroDocumento(usuarioRecuperado.getDocumento());
 			clienteGrabar.setTipoDocumento(usuarioRecuperado.getTipoDocumento());
+			clienteGrabar.setCorreo(usuarioRecuperado.getCorreo());
 			if(clienteGrabar.getIdCliente() == null)
 				usuarioDAO.getEntityManager().persist(clienteGrabar);
 			else
@@ -188,6 +190,14 @@ public class UsuarioEditar {
 			Clients.showNotification("Debe registrar Telefono del usuario","info",txtTelefono,"end_center",2000);
 			txtTelefono.setFocus(true);
 			return false;
+		}
+		//validar el email, el email es opcional, solo se valida si esta lleno
+		if(!txtCorreo.getText().isEmpty()) {
+			if(!ControllerHelper.validarEmail(txtCorreo.getText())) {
+				Clients.showNotification("El correo ingresado no es valido","info",txtCorreo,"end_center",2000);
+				txtCorreo.setFocus(true);
+				return false;
+			}
 		}
 		if(txtUsuario.getText().isEmpty()) {
 			Clients.showNotification("Debe registrar Usuario del usuario","info",txtUsuario,"end_center",2000);

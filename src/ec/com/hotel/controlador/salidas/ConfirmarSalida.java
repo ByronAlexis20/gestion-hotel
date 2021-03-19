@@ -142,7 +142,7 @@ public class ConfirmarSalida {
 		
 		double totalPagar = (subtotal + adicional - descuento) - reserva.getPrecioAdelanto();
 		
-		txtTotalPagar.setText(String.valueOf(totalPagar));
+		txtTotalPagar.setText(String.format("%.2f",totalPagar));
 
 	}
 	

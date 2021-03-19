@@ -112,7 +112,7 @@
 						</vbox>
 						<vbox hflex="1">
 							<label value="Adelanto:"/>
-							<doublebox id="txtAdelanto" hflex="1" format="####0.00" constraint="no negative"/>
+							<doublebox id="txtAdelanto" hflex="1" constraint="no negative"/>
 						</vbox>
 					</hbox>
 				</vbox>

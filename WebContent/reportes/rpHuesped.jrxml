@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpHuesped" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6796064b-cfdd-4138-adaa-2c93325cae32">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Hotel Montoya"/>
@@ -157,34 +158,50 @@ where c.id_tipo_documento = td.id_tipo_documento and c.estado = 'A']]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="18" splitType="Stretch">
+		<band height="23" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField isBlankWhenNull="true">
-				<reportElement x="12" y="2" width="72" height="14" uuid="01b33c63-5448-4a1a-a390-04a0f95a78b0"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="12" y="0" width="72" height="22" uuid="01b33c63-5448-4a1a-a390-04a0f95a78b0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tipo_documento}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="87" y="2" width="78" height="14" uuid="a2134989-369d-4a7f-a9c2-56fa6e80760b"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="87" y="0" width="78" height="22" uuid="a2134989-369d-4a7f-a9c2-56fa6e80760b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="169" y="2" width="194" height="14" uuid="132298db-3481-4a09-b0cc-3aeb598ef4f4"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="169" y="0" width="194" height="22" uuid="132298db-3481-4a09-b0cc-3aeb598ef4f4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{huesped}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="365" y="2" width="64" height="14" uuid="7a319200-51ef-4702-8f60-8a4be7007f48"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="365" y="0" width="64" height="22" uuid="7a319200-51ef-4702-8f60-8a4be7007f48"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="2" width="109" height="14" uuid="0ba3f85b-16ec-40fb-ba46-a77b8a0ea3b9"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="436" y="0" width="109" height="22" uuid="0ba3f85b-16ec-40fb-ba46-a77b8a0ea3b9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="12" y="17" width="532" height="1" uuid="aaeb537b-f191-41fa-b56c-390ec3ca4d4c"/>
+				<reportElement x="12" y="22" width="532" height="1" uuid="aaeb537b-f191-41fa-b56c-390ec3ca4d4c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 			</line>
 		</band>
 	</detail>

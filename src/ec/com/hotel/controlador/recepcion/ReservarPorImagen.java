@@ -87,8 +87,9 @@ public class ReservarPorImagen {
 			panel.setHflex("1");
 			panel.setVflex("1");
 			
-			
-			Label labelHabitacion = new Label("Imagenes Panorámicas Habitacion No: " + hab.getNumero() + " Estado: " + hab.getEstadoReserva());
+			String habDesc = "Imagenes Panorámicas Habitacion No: " + hab.getNumero() + " Estado: " + hab.getEstadoReserva();
+			habDesc += "\nPrecio por día: " + hab.getPrecio() + "\n";
+			Label labelHabitacion = new Label(habDesc);
 			labelHabitacion.setHflex("1");
 			labelHabitacion.setStyle("font-size:17px;font-weight: bold;");
 			

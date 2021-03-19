@@ -48,6 +48,8 @@ public class Usuario implements Serializable {
 	private String telefono;
 
 	private String usuario;
+	
+	private String correo;
 
 	//bi-directional many-to-one association to TipoDocumento
 	@ManyToOne
@@ -156,6 +158,14 @@ public class Usuario implements Serializable {
 
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 	@Override

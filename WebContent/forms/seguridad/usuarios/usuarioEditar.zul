@@ -114,6 +114,13 @@
 						</cell>
 					</row>
 					<row>
+						<cell class="label-form">Correo:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" id="txtCorreo" hflex="1" value="@bind(vm.usuario.correo)"/>
+						</cell>
+					</row>
+					<row>
 						<cell class="label-form">Usuario:</cell>
 						<cell>
 							<textbox
